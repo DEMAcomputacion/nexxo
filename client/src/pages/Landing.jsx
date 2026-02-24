@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { Link } from 'react-router';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 
 function AnimatedSection({ children, className = '' }) {
@@ -100,20 +99,6 @@ function Hero() {
         >
           No representamos volumen. Representamos talento alineado, métricas sólidas y colaboraciones estratégicas que generan impacto real.
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="flex gap-4 justify-center flex-wrap"
-        >
-          <Link to="/register-business" className="px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-full font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1">
-            Descubre Cómo
-          </Link>
-          <Link to="#proceso" className="px-8 py-4 bg-transparent border border-white/20 rounded-full font-semibold text-white hover:bg-white/10 transition-all">
-            Ver Proceso
-          </Link>
-        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -358,31 +343,127 @@ function Testimonials() {
   );
 }
 
-function CTA() {
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    type: '',
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <section id="contacto" className="py-32 px-5 bg-landing-dark">
+        <div className="max-w-xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-landing-card border border-white/10 rounded-2xl p-12"
+          >
+            <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-4">¡Mensaje enviado!</h3>
+            <p className="text-white/70">Gracias por contactarnos. Te responderemos en breve.</p>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="contacto" className="py-32 px-5 bg-landing-dark relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-radial-gradient from-landing-orange/20 to-transparent blur-[60px]" />
-      
-      <div className="max-w-3xl mx-auto text-center relative z-10">
-        <AnimatedSection>
-          <h2 className="text-5xl md:text-6xl font-black mb-6 text-white leading-tight">
-            Deja de invertir en <br />
-            <span className="bg-gradient-to-r from-landing-orange via-landing-coral via-landing-pink to-landing-purple bg-clip-text text-transparent">
-              campañas que no funcionan
-            </span>
-          </h2>
-          <p className="text-xl text-white/70 mb-10 max-w-xl mx-auto">
-            Únete a las marcas que ya descubrieron el poder de las conexiones estratégicas. Tu próxima colaboración exitosa está a un click.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link to="/register-business" className="px-10 py-5 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-full font-semibold text-white text-lg hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1">
-              Solicitar Propuesta
-            </Link>
-            <button className="px-10 py-5 bg-transparent border border-white/20 rounded-full font-semibold text-white text-lg hover:bg-white/10 transition-all">
-              Agendar Demo
-            </button>
-          </div>
+    <section id="contacto" className="py-32 px-5 bg-landing-dark">
+      <div className="max-w-xl mx-auto">
+        <AnimatedSection className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">Hablemos</h2>
+          <p className="text-white/70">Cuéntanos sobre tu proyecto y te contactaremos.</p>
         </AnimatedSection>
+
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          onSubmit={handleSubmit}
+          className="bg-landing-card border border-white/10 rounded-2xl p-8 space-y-6"
+        >
+          <div>
+            <label className="block text-sm font-medium text-white/80 mb-2">¿Te comunicas como?</label>
+            <select
+              required
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+              value={formData.type}
+              onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            >
+              <option value="" className="bg-landing-dark">Selecciona una opción</option>
+              <option value="influencer" className="bg-landing-dark">Influencer</option>
+              <option value="negocio" className="bg-landing-dark">Negocio / Marca</option>
+            </select>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Nombre</label>
+              <input
+                type="text"
+                required
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+                placeholder="Tu nombre"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">Email</label>
+              <input
+                type="email"
+                required
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+                placeholder="tu@email.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-white/80 mb-2">Empresa (opcional)</label>
+            <input
+              type="text"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+              placeholder="Nombre de tu empresa"
+              value={formData.company}
+              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-white/80 mb-2">Mensaje</label>
+            <textarea
+              required
+              rows={4}
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange resize-none"
+              placeholder="Cuéntanos sobre tu proyecto o需求..."
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1"
+          >
+            Enviar Mensaje
+          </button>
+        </motion.form>
       </div>
     </section>
   );
@@ -395,7 +476,7 @@ function Landing() {
       <Problem />
       <Solution />
       <Testimonials />
-      <CTA />
+      <ContactForm />
     </div>
   );
 }
