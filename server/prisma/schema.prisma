@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  influencer
+  client
+  admin
+}
+
+enum RequestStatus {
+  pending
+  accepted
+  rejected
+  completed
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String    @map("password_hash")
+  name          String
+  role          UserRole
+  phone         String?
+  avatar        String?
+  isActive      Boolean   @default(true)
+  emailVerified Boolean   @default(false)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  influencerProfile InfluencerProfile?
+  clientProfile     ClientProfile?
+  sentRequests      MatchingRequest[] @relation("SentRequests")
+  receivedRequests MatchingRequest[] @relation("ReceivedRequests")
+
+  @@map("users")
+}
+
+model InfluencerProfile {
+  id                String   @id @default(uuid())
+  userId            String   @unique @map("user_id")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio               String?
+  location          String?
+  niche             String[] 
+  platforms         String[]
+  followersCount    Int      @default(0) @map("followers_count")
+  engagementRate    Float    @default(0.0) @map("engagement_rate")
+  priceRangeMin     Int      @default(0) @map("price_range_min")
+  priceRangeMax     Int      @default(0) @map("price_range_max")
+  socialLinks       Json?    @map("social_links")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("influencer_profiles")
+}
+
+model ClientProfile {
+  id            String   @id @default(uuid())
+  userId        String   @unique @map("user_id")
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName   String?  @map("company_name")
+  industry      String?
+  budgetMin     Int      @default(0) @map("budget_min")
+  budgetMax     Int      @default(0) @map("budget_max")
+  description   String?
+  website       String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("client_profiles")
+}
+
+model MatchingRequest {
+  id          String         @id @default(uuid())
+  senderId    String         @map("sender_id")
+  receiverId  String         @map("receiver_id")
+  sender      User           @relation("SentRequests", fields: [senderId], references: [id])
+  receiver    User           @relation("ReceivedRequests", fields: [receiverId], references: [id])
+  status      RequestStatus  @default(pending)
+  message     String?
+  budget      Int?
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+
+  @@map("matching_requests")
+}
+
+model PasswordReset {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("password_resets")
+}
