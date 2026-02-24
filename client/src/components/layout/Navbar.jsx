@@ -1,9 +1,12 @@
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isOnboarding = location.pathname === '/onboarding';
 
   const handleLogout = () => {
     logout();
@@ -21,14 +24,16 @@ function Navbar() {
           
           <div className="flex items-center gap-4">
             {!user ? (
-              <>
-                <Link to="/login" className="text-neutral-600 hover:text-primary">
-                  Iniciar Sesión
-                </Link>
-                <Link to="/onboarding" className="btn btn-primary">
-                  Registrarme como Influencer
-                </Link>
-              </>
+              !isOnboarding && (
+                <>
+                  <Link to="/login" className="text-neutral-600 hover:text-primary">
+                    Iniciar Sesión
+                  </Link>
+                  <Link to="/onboarding" className="btn btn-primary">
+                    Registrarme como Influencer
+                  </Link>
+                </>
+              )
             ) : (
               <>
                 <Link to="/dashboard/influencer" className="text-neutral-600 hover:text-primary">

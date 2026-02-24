@@ -625,7 +625,6 @@ export default function Onboarding() {
     <div className="min-h-screen bg-neutral-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary">NEXXO</h1>
           <p className="text-neutral-500 mt-2">Registro de Influencer</p>
         </div>
         
