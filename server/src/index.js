@@ -4,7 +4,6 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import influencerRoutes from './routes/influencer.routes.js';
-import clientRoutes from './routes/client.routes.js';
 import matchingRoutes from './routes/matching.routes.js';
 
 dotenv.config();
@@ -23,7 +22,6 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/influencers', influencerRoutes);
-app.use('/api/clients', clientRoutes);
 app.use('/api/matching', matchingRoutes);
 
 app.use((err, req, res, next) => {

@@ -7,7 +7,7 @@ const registerSchema = z.object({
   email: z.string().email('Invalid email format'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  role: z.enum(['influencer', 'client']),
+  role: z.enum(['influencer']),
   phone: z.string().optional(),
   city: z.string().optional(),
 });
@@ -82,25 +82,6 @@ export const register = async (req, res, next) => {
         },
         include: {
           influencerProfile: true,
-          clientProfile: true,
-        },
-      });
-    } else {
-      user = await prisma.user.create({
-        data: {
-          email: data.email,
-          passwordHash,
-          name: data.name,
-          role: data.role,
-          phone: data.phone,
-          city: data.city,
-          clientProfile: {
-            create: {},
-          },
-        },
-        include: {
-          influencerProfile: true,
-          clientProfile: true,
         },
       });
     }

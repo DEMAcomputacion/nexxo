@@ -24,27 +24,18 @@ function Navbar() {
                 <Link to="/login" className="text-neutral-600 hover:text-primary">
                   Iniciar Sesión
                 </Link>
-                <Link to="/register" className="btn btn-primary">
-                  Regístrate
+                <Link to="/onboarding" className="btn btn-primary">
+                  Registrarme como Influencer
                 </Link>
               </>
             ) : (
               <>
-                {user.role === 'influencer' && (
-                  <>
-                    <Link to="/dashboard/influencer" className="text-neutral-600 hover:text-primary">
-                      Dashboard
-                    </Link>
-                    <Link to="/profile/influencer" className="text-neutral-600 hover:text-primary">
-                      Mi Perfil
-                    </Link>
-                  </>
-                )}
-                {user.role === 'client' && (
-                  <Link to="/dashboard/client" className="text-neutral-600 hover:text-primary">
-                    Dashboard
-                  </Link>
-                )}
+                <Link to="/dashboard/influencer" className="text-neutral-600 hover:text-primary">
+                  Dashboard
+                </Link>
+                <Link to="/profile/influencer" className="text-neutral-600 hover:text-primary">
+                  Mi Perfil
+                </Link>
                 <button onClick={handleLogout} className="text-neutral-600 hover:text-error">
                   Cerrar Sesión
                 </button>

@@ -492,7 +492,7 @@ function Step5Summary({ data, onChange, errors }) {
   );
 }
 
-export default function RegisterInfluencer() {
+export default function Onboarding() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
