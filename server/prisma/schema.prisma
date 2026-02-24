@@ -27,6 +27,7 @@ model User {
   name          String
   role          UserRole
   phone         String?
+  city          String?
   avatar        String?
   isActive      Boolean   @default(true)
   emailVerified Boolean   @default(false)
@@ -42,20 +43,41 @@ model User {
 }
 
 model InfluencerProfile {
-  id                String   @id @default(uuid())
-  userId            String   @unique @map("user_id")
-  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  bio               String?
-  location          String?
-  niche             String[] 
-  platforms         String[]
-  followersCount    Int      @default(0) @map("followers_count")
-  engagementRate    Float    @default(0.0) @map("engagement_rate")
-  priceRangeMin     Int      @default(0) @map("price_range_min")
-  priceRangeMax     Int      @default(0) @map("price_range_max")
-  socialLinks       Json?    @map("social_links")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id                  String   @id @default(uuid())
+  userId              String   @unique @map("user_id")
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Métricas básicas
+  bio                 String?
+  location            String?
+  niche               String[] 
+  platforms           String[]
+  followersCount      Int      @default(0) @map("followers_count")
+  engagementRate      Float    @default(0.0) @map("engagement_rate")
+  
+  // Redes sociales (JSON con handle y followers por plataforma)
+  socials             Json?    @map("socials")
+  
+  // Información de audiencia
+  audienceAge         String?  @map("audience_age")
+  audienceGender      String?  @map("audience_gender")
+  postFrequency       String?  @map("post_frequency")
+  
+  // Tipos de contenido
+  contentFormats      String[] @map("content_formats")
+  
+  // Tarifas
+  priceRangeMin       Int      @default(0) @map("price_range_min")
+  priceRangeMax       Int      @default(0) @map("price_range_max")
+  paymentModel        String?  @map("payment_model")
+  collaborationTypes  String?  @map("collaboration_types")
+  
+  // Extras
+  mediaKitUrl         String?  @map("media_kit_url")
+  contentRestrictions String?  @map("content_restrictions")
+  
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
 
   @@map("influencer_profiles")
 }
