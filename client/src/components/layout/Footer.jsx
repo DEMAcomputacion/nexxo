@@ -6,7 +6,10 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-white text-lg font-bold mb-4">NEXXO</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <img src="/logo_transparent.png" alt="NEXXO" className="h-8 w-auto" />
+              <span className="text-white text-lg font-bold">NEXXO</span>
+            </div>
             <p className="text-sm">
               Agencia boutique de marketing enfocada en matching entre influencers locales y negocios.
             </p>
@@ -15,16 +18,8 @@ function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-4">Para Influencers</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/register" className="hover:text-white">Regístrate</Link></li>
+              <li><Link to="/onboarding" className="hover:text-white">Regístrate</Link></li>
               <li><Link to="/login" className="hover:text-white">Iniciar Sesión</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-semibold mb-4">Para Negocios</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/register" className="hover:text-white">Empezar Ahora</Link></li>
-              <li><a href="#" className="hover:text-white">Cómo Funciona</a></li>
             </ul>
           </div>
           

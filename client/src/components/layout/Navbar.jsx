@@ -14,8 +14,9 @@ function Navbar() {
     <nav className="bg-white shadow-sm border-b border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary">NEXXO</span>
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/logo_transparent.png" alt="NEXXO" className="h-10 w-auto" />
+            <span className="text-2xl font-bold text-neutral-900">NEXXO</span>
           </Link>
           
           <div className="flex items-center gap-4">
