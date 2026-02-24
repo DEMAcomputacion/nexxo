@@ -69,7 +69,7 @@ model InfluencerProfile {
   priceRangeMin       Int      @default(0) @map("price_range_min")
   priceRangeMax       Int      @default(0) @map("price_range_max")
   paymentModel        String?  @map("payment_model")
-  collaborationTypes  String?  @map("collaboration_types")
+  collaborationTypes  String[] @map("collaboration_types")
   
   // Extras
   mediaKitUrl         String?  @map("media_kit_url")

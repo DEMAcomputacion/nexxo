@@ -351,16 +351,25 @@ function Step4Rates({ data, onChange }) {
       
       <div>
         <label className="block text-sm font-medium mb-2">Tipos de Colaboraciones Aceptadas</label>
-        <select
-          className="input"
-          value={data.collaborationTypes || ''}
-          onChange={(e) => onChange({ ...data, collaborationTypes: e.target.value })}
-        >
-          <option value="">Selecciona...</option>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {collaborationTypes.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <label key={c} className="flex items-center gap-2 cursor-pointer p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+              <input
+                type="checkbox"
+                className="w-4 h-4 text-primary rounded border-neutral-300 focus:ring-primary"
+                checked={data.collaborationTypes?.includes(c) || false}
+                onChange={(e) => {
+                  const current = data.collaborationTypes || [];
+                  const updated = e.target.checked
+                    ? [...current, c]
+                    : current.filter((item) => item !== c);
+                  onChange({ ...data, collaborationTypes: updated });
+                }}
+              />
+              <span className="text-sm">{c}</span>
+            </label>
           ))}
-        </select>
+        </div>
       </div>
       
       <div>
@@ -421,7 +430,7 @@ function Step5Summary({ data, onChange, errors }) {
         <input
           type="password"
           className={`input ${errors.password ? 'border-error' : ''}`}
-          placeholder="••••••••"
+          placeholder="Mínimo 8 caracteres"
           value={data.password || ''}
           onChange={(e) => onChange({ ...data, password: e.target.value })}
           required
@@ -529,7 +538,7 @@ export default function RegisterInfluencer() {
     
     if (currentStep === 5) {
       if (!formData.password) newErrors.password = 'La contraseña es requerida';
-      if (formData.password.length < 6) newErrors.password = 'Mínimo 6 caracteres';
+      if (formData.password.length < 8) newErrors.password = 'Mínimo 8 caracteres';
       if (formData.password !== formData.confirmPassword) {
         newErrors.confirmPassword = 'Las contraseñas no coinciden';
       }
