@@ -169,12 +169,68 @@ export const getMe = async (req, res, next) => {
         avatar: true,
         createdAt: true,
         influencerProfile: true,
-        clientProfile: true,
+        businessProfile: true,
       },
     });
     
     res.json(user);
   } catch (error) {
+    next(error);
+  }
+};
+
+export const registerBusiness = async (req, res, next) => {
+  try {
+    const { companyName, email, password } = req.body;
+    
+    if (!companyName || !email || !password) {
+      return res.status(400).json({ error: 'Company name, email and password are required' });
+    }
+    
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+    
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    
+    const passwordHash = await bcrypt.hash(password, 12);
+    
+    const user = await prisma.user.create({
+      data: {
+        email,
+        passwordHash,
+        name: companyName,
+        role: 'business',
+        businessProfile: {
+          create: {
+            companyName,
+          },
+        },
+      },
+      include: {
+        businessProfile: true,
+      },
+    });
+    
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+    
+    res.status(201).json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error('Register business error:', error);
     next(error);
   }
 };

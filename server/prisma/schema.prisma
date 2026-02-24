@@ -8,6 +8,7 @@ datasource db {
 
 enum UserRole {
   influencer
+  business
   admin
 }
 
@@ -33,6 +34,7 @@ model User {
   updatedAt     DateTime  @updatedAt @map("updated_at")
 
   influencerProfile InfluencerProfile?
+  businessProfile   BusinessProfile?
   sentRequests      MatchingRequest[] @relation("SentRequests")
   receivedRequests MatchingRequest[] @relation("ReceivedRequests")
 
@@ -77,6 +79,22 @@ model InfluencerProfile {
   updatedAt           DateTime @updatedAt @map("updated_at")
 
   @@map("influencer_profiles")
+}
+
+model BusinessProfile {
+  id            String   @id @default(uuid())
+  userId        String   @unique @map("user_id")
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName   String   @map("company_name")
+  industry      String?
+  budgetMin     Int      @default(0) @map("budget_min")
+  budgetMax     Int      @default(0) @map("budget_max")
+  description   String?
+  website       String?
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("business_profiles")
 }
 
 model MatchingRequest {

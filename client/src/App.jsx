@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
+import RegisterBusiness from './pages/RegisterBusiness';
 import RecoverPassword from './pages/RecoverPassword';
 import DashboardInfluencer from './pages/DashboardInfluencer';
 import ProfileInfluencer from './pages/ProfileInfluencer';
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/register-business" element={<RegisterBusiness />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
         
         <Route path="/dashboard/influencer" element={

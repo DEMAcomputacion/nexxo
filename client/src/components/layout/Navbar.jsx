@@ -6,7 +6,7 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const isOnboarding = location.pathname === '/onboarding';
+  const isAuthPage = location.pathname === '/onboarding' || location.pathname === '/login' || location.pathname === '/register-business';
 
   const handleLogout = () => {
     logout();
@@ -24,7 +24,7 @@ function Navbar() {
           
           <div className="flex items-center gap-4">
             {!user ? (
-              !isOnboarding && (
+              !isAuthPage && (
                 <>
                   <Link to="/login" className="text-neutral-600 hover:text-primary">
                     Iniciar Sesión
