@@ -103,15 +103,15 @@ function Hero() {
           transition={{ delay: 0.8 }}
           className="flex justify-center gap-16 mt-20"
         >
-          <div className="text-center">
+          <div className="text-center relative">
             <Counter target={50} />
             <p className="text-white/60 text-sm mt-2">Creadores Locales</p>
           </div>
-          <div className="text-center">
+          <div className="text-center relative">
             <Counter target={100} />
             <p className="text-white/60 text-sm mt-2">Campañas Realizadas</p>
           </div>
-          <div className="text-center">
+          <div className="text-center relative">
             <Counter target={24} />
             <p className="text-white/60 text-sm mt-2">Hs Respuesta</p>
           </div>
@@ -222,25 +222,18 @@ function Solution() {
           <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-white">Cómo trabajamos</h2>
         </AnimatedSection>
 
-        <div className="relative">
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-landing-orange via-landing-purple to-transparent md:left-1/2 md:-translate-x-1/2" />
+        <div className="relative md:flex md:justify-between md:items-center">
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-landing-orange via-landing-purple to-transparent -translate-x-1/2" />
           
           {process.map((item, i) => (
-            <AnimatedSection key={i} className="relative mb-16 last:mb-0">
-              <div className={`flex gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                <div className="flex-1 pl-16 md:pl-0">
-                  <div className="md:text-right">
-                    <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-landing-orange to-landing-pink rounded-full flex items-center justify-center font-bold text-white border-4 border-landing-dark">
-                      {item.number}
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 text-white">{item.title}</h3>
-                    <p className="text-white/70 leading-relaxed">{item.description}</p>
-                  </div>
+            <AnimatedSection key={i} className="relative md:w-[45%] mb-12 md:mb-0">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-landing-orange to-landing-pink rounded-full flex items-center justify-center font-bold text-white border-4 border-landing-dark z-10">
+                  {item.number}
                 </div>
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-landing-card border border-white/10 rounded-2xl flex items-center justify-center text-3xl md:hidden">
-                    {item.icon}
-                  </div>
+                <div className={`${i % 2 === 1 ? 'md:order-first' : ''}`}>
+                  <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
+                  <p className="text-white/70 leading-relaxed text-sm">{item.description}</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -318,6 +311,56 @@ function ForWho() {
         </AnimatedSection>
       </div>
     </section>
+  );
+}
+
+function Creators() {
+  return (
+    <section className="py-32 px-5 bg-landing-dark">
+      <div className="max-w-4xl mx-auto text-center">
+        <AnimatedSection>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-white">Para creadores de contenido</h2>
+          <p className="text-2xl text-white/80 mb-8 leading-relaxed">
+            ¿Creás contenido en el Valle de Uco y querés monetizarlo?
+          </p>
+          <p className="text-lg text-white/60 mb-10 leading-relaxed">
+            Sumarte a NEXXO es gratis. Cargás tu perfil, tu nicho y tus tarifas, y nosotros te conectamos con comercios locales que buscan exactamente lo que vos hacés. Sin perseguir marcas, sin propuestas que nunca llegan.
+          </p>
+          <a 
+            href="#contacto" 
+            className="inline-block px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-full font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1"
+          >
+            Quiero registrarme como creador
+          </a>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
+
+function LandingFooter() {
+  return (
+    <footer className="bg-landing-dark border-t border-white/10 py-12">
+      <div className="max-w-6xl mx-auto px-5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex items-center gap-2">
+          <img src="/logo_transparent.png" alt="NEXXO" className="h-8 w-auto" />
+          <span className="text-white text-lg font-bold">NEXXO</span>
+        </div>
+        
+        <p className="text-white/60 text-sm">
+          Valle de Uco, Mendoza · Marketing digital local para negocios reales.
+        </p>
+        
+        <div className="flex gap-4 text-white/60 text-sm">
+          <span>Instagram</span>
+          <span>·</span>
+          <span>WhatsApp</span>
+        </div>
+      </div>
+      <div className="text-center text-white/40 text-sm mt-8">
+        &copy; {new Date().getFullYear()} NEXXO. Todos los derechos reservados.
+      </div>
+    </footer>
   );
 }
 
@@ -455,7 +498,9 @@ function Landing() {
       <Solution />
       <Features />
       <ForWho />
+      <Creators />
       <ContactForm />
+      <LandingFooter />
     </div>
   );
 }
