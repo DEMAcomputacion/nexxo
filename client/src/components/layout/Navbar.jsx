@@ -7,17 +7,18 @@ function Navbar() {
   const location = useLocation();
   
   const isLanding = location.pathname === '/';
+  const isDarkPage = isLanding || location.pathname === '/login' || location.pathname === '/onboarding' || location.pathname === '/register-business';
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
-  const navBgClass = isLanding 
+  const navBgClass = isDarkPage 
     ? 'bg-transparent absolute' 
     : 'bg-white shadow-sm border-b border-neutral-200';
     
-  const textClass = isLanding ? 'text-white' : 'text-neutral-900';
+  const textClass = isDarkPage ? 'text-white' : 'text-neutral-900';
 
   return (
     <nav className={`${navBgClass} z-50 transition-all`}>
@@ -36,7 +37,7 @@ function Navbar() {
               <Link to="/profile/influencer" className={textClass}>
                 Mi Perfil
               </Link>
-              <button onClick={handleLogout} className={isLanding ? 'text-white/70 hover:text-white' : 'text-neutral-600 hover:text-error'}>
+              <button onClick={handleLogout} className={isDarkPage ? 'text-white/70 hover:text-white' : 'text-neutral-600 hover:text-error'}>
                 Cerrar Sesión
               </button>
             </div>

@@ -64,8 +64,8 @@ function Stepper({ currentStep }) {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all duration-300 ${
                 currentStep >= step.id
-                  ? 'bg-primary text-white'
-                  : 'bg-neutral-200 text-neutral-500'
+                  ? 'bg-gradient-to-r from-landing-orange to-landing-pink text-white'
+                  : 'bg-white/10 text-white/50'
               }`}
             >
               {currentStep > step.id ? (
@@ -76,12 +76,12 @@ function Stepper({ currentStep }) {
                 step.id
               )}
             </div>
-            <span className={`text-xs mt-1 hidden sm:block ${currentStep >= step.id ? 'text-primary' : 'text-neutral-400'}`}>
+            <span className={`text-xs mt-1 hidden sm:block ${currentStep >= step.id ? 'text-white' : 'text-white/40'}`}>
               {step.title}
             </span>
           </div>
           {index < steps.length - 1 && (
-            <div className={`w-12 sm:w-20 h-0.5 mx-2 ${currentStep > step.id ? 'bg-primary' : 'bg-neutral-200'}`} />
+            <div className={`w-12 sm:w-20 h-0.5 mx-2 ${currentStep > step.id ? 'bg-gradient-to-r from-landing-orange to-landing-pink' : 'bg-white/10'}`} />
           )}
         </div>
       ))}
@@ -97,14 +97,14 @@ function Step1Personal({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6">Información Personal</h2>
-      <p className="text-neutral-500 text-center mb-6">Vamos a comenzar con tus datos básicos.</p>
+      <h2 className="text-xl font-semibold text-center mb-6 text-white">Información Personal</h2>
+      <p className="text-white/60 text-center mb-6">Vamos a comenzar con tus datos básicos.</p>
       
       <div>
         <label className="block text-sm font-medium mb-2">Nombre completo *</label>
         <input
           type="text"
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           placeholder="Juan Pérez"
           value={data.name}
           onChange={(e) => onChange({ ...data, name: e.target.value })}
@@ -116,7 +116,7 @@ function Step1Personal({ data, onChange }) {
         <label className="block text-sm font-medium mb-2">Email *</label>
         <input
           type="email"
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           placeholder="tu@email.com"
           value={data.email}
           onChange={(e) => onChange({ ...data, email: e.target.value })}
@@ -128,7 +128,7 @@ function Step1Personal({ data, onChange }) {
         <label className="block text-sm font-medium mb-2">Teléfono</label>
         <input
           type="tel"
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           placeholder="+54 9 11 2345 6789"
           value={data.phone}
           onChange={(e) => onChange({ ...data, phone: e.target.value })}
@@ -139,7 +139,7 @@ function Step1Personal({ data, onChange }) {
         <label className="block text-sm font-medium mb-2">Ciudad *</label>
         <input
           type="text"
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           placeholder="Buenos Aires, Argentina"
           value={data.city}
           onChange={(e) => onChange({ ...data, city: e.target.value })}
@@ -171,8 +171,8 @@ function Step2Social({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6">Redes Sociales</h2>
-      <p className="text-neutral-500 text-center mb-6">Completá la información sobre tus redes. Solo rellena las que usarás para publicitar.</p>
+      <h2 className="text-xl font-semibold text-center mb-6 text-white">Redes Sociales</h2>
+      <p className="text-white/60 text-center mb-6">Completá la información sobre tus redes. Solo rellena las que usarás para publicitar.</p>
       
       {socialPlatforms.map((platform) => (
         <div key={platform} className="border border-neutral-200 rounded-lg p-4">
@@ -221,13 +221,13 @@ function Step3Metrics({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6">Métricas y Sector de Acción</h2>
-      <p className="text-neutral-500 text-center mb-6">Configura tus métricas luego podés modificarlas o actualizarlas.</p>
+      <h2 className="text-xl font-semibold text-center mb-6 text-white">Métricas y Sector de Acción</h2>
+      <p className="text-white/60 text-center mb-6">Configura tus métricas luego podés modificarlas o actualizarlas.</p>
       
       <div>
         <label className="block text-sm font-medium mb-2">Nicho Principal *</label>
         <select
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           value={data.niche || ''}
           onChange={(e) => onChange({ ...data, niche: e.target.value })}
           required
@@ -259,7 +259,7 @@ function Step3Metrics({ data, onChange }) {
       <div>
         <label className="block text-sm font-medium mb-2">Edad Promedio de Audiencia</label>
         <select
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           value={data.audienceAge || ''}
           onChange={(e) => onChange({ ...data, audienceAge: e.target.value })}
         >
@@ -273,7 +273,7 @@ function Step3Metrics({ data, onChange }) {
       <div>
         <label className="block text-sm font-medium mb-2">Género Predominante</label>
         <select
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           value={data.audienceGender || ''}
           onChange={(e) => onChange({ ...data, audienceGender: e.target.value })}
         >
@@ -287,7 +287,7 @@ function Step3Metrics({ data, onChange }) {
       <div>
         <label className="block text-sm font-medium mb-2">Frecuencia de posteo</label>
         <select
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           value={data.postFrequency || ''}
           onChange={(e) => onChange({ ...data, postFrequency: e.target.value })}
         >
@@ -309,7 +309,7 @@ function Step4Rates({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6">Tarifas</h2>
+      <h2 className="text-xl font-semibold text-center mb-6 text-white">Tarifas</h2>
       <p className="text-neutral-500 text-center mb-6">Configura tus pretensiones por publicación o por alcance.</p>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -317,7 +317,7 @@ function Step4Rates({ data, onChange }) {
           <label className="block text-sm font-medium mb-2">Tarifa Mínima por Publicación ($)</label>
           <input
             type="number"
-            className="input"
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
             placeholder="100"
             value={data.priceMin || ''}
             onChange={(e) => onChange({ ...data, priceMin: parseInt(e.target.value) || 0 })}
@@ -327,7 +327,7 @@ function Step4Rates({ data, onChange }) {
           <label className="block text-sm font-medium mb-2">Tarifa Máxima por Publicación ($)</label>
           <input
             type="number"
-            className="input"
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
             placeholder="500"
             value={data.priceMax || ''}
             onChange={(e) => onChange({ ...data, priceMax: parseInt(e.target.value) || 0 })}
@@ -338,7 +338,7 @@ function Step4Rates({ data, onChange }) {
       <div>
         <label className="block text-sm font-medium mb-2">Modelo de Pago Preferido</label>
         <select
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           value={data.paymentModel || ''}
           onChange={(e) => onChange({ ...data, paymentModel: e.target.value })}
         >
@@ -376,7 +376,7 @@ function Step4Rates({ data, onChange }) {
         <label className="block text-sm font-medium mb-2">URL del Media Kit / Portafolio</label>
         <input
           type="url"
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           placeholder="https://drive.google.com/..."
           value={data.mediaKitUrl || ''}
           onChange={(e) => onChange({ ...data, mediaKitUrl: e.target.value })}
@@ -386,7 +386,7 @@ function Step4Rates({ data, onChange }) {
       <div>
         <label className="block text-sm font-medium mb-2">Restricciones de Contenido</label>
         <textarea
-          className="input"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
           rows={3}
           placeholder="Ej: No acepto contenido para menores de edad, no hago publicidad de..."
           value={data.contentRestrictions || ''}
@@ -410,7 +410,7 @@ function Step5Summary({ data, onChange, errors }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6">Resumen y Contraseña</h2>
+      <h2 className="text-xl font-semibold text-center mb-6 text-white">Resumen y Contraseña</h2>
       <p className="text-neutral-500 text-center mb-6">Revisa tus datos y crea una contraseña para tu cuenta.</p>
       
       <div className="bg-neutral-50 rounded-lg p-4 mb-6">
@@ -622,21 +622,22 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 py-8 px-4">
+    <div className="min-h-screen bg-landing-dark py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <p className="text-neutral-500 mt-2">Registro de Influencer</p>
+          <img src="/logo_transparent.png" alt="NEXXO" className="h-12 mx-auto mb-4" />
+          <p className="text-white/70">Registro de Influencer</p>
         </div>
         
         <Stepper currentStep={step} />
         
-        <div className="card">
+        <div className="bg-landing-card border border-white/10 rounded-2xl p-8">
           <AnimatePresence mode="wait">
             {renderStep()}
           </AnimatePresence>
           
           {error && (
-            <div className="mt-4 p-3 bg-error/10 border border-error/20 rounded-lg text-error text-sm">
+            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
@@ -646,7 +647,7 @@ export default function Onboarding() {
               <button
                 type="button"
                 onClick={handleBack}
-                className="btn btn-outline"
+                className="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium text-white hover:bg-white/20 transition-all"
                 disabled={loading}
               >
                 Anterior
@@ -659,7 +660,7 @@ export default function Onboarding() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="btn btn-primary"
+                className="px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1"
               >
                 Siguiente
               </button>
@@ -667,7 +668,7 @@ export default function Onboarding() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="btn btn-primary"
+                className="px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50"
                 disabled={loading}
               >
                 {loading ? 'Registrando...' : 'Completar Registro'}
@@ -676,9 +677,9 @@ export default function Onboarding() {
           </div>
         </div>
         
-        <p className="text-center text-sm text-neutral-500 mt-6">
-          ¿Ya tienes una cuenta?{' '}
-          <a href="/login" className="text-primary hover:underline">
+        <p className="text-center text-sm text-white/60 mt-6">
+          ¿Ya tenés una cuenta?{' '}
+          <a href="/login" className="text-landing-orange hover:underline">
             Iniciar Sesión
           </a>
         </p>
