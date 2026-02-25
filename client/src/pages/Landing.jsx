@@ -67,7 +67,7 @@ function Hero() {
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-sm text-white/70 mb-10"
         >
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-          Agencia de Curaduría Estratégica
+          Agencia de Marketing Digital · Valle de Uco
         </motion.div>
 
         <motion.img
@@ -83,12 +83,9 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-5xl md:text-7xl font-black mb-6 text-white leading-tight"
+          className="text-4xl md:text-6xl font-black mb-6 text-white leading-tight"
         >
-          <span className="block">Conexiones que</span>
-          <span className="block bg-gradient-to-r from-landing-orange via-landing-coral via-landing-pink via-landing-purple to-landing-blue bg-clip-text text-transparent">
-            Transforman Marcas
-          </span>
+          Conectamos tu negocio con las voces que el Valle de Uco ya escucha
         </motion.h1>
 
         <motion.p
@@ -97,7 +94,7 @@ function Hero() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="text-lg md:text-xl text-white/70 max-w-xl mx-auto mb-10"
         >
-          No representamos volumen. Representamos talento alineado, métricas sólidas y colaboraciones estratégicas que generan impacto real.
+          Somos una agencia de marketing digital local. Encontramos los creadores de contenido correctos, diseñamos tu campaña y te mostramos con números si funcionó.
         </motion.p>
 
         <motion.div
@@ -107,16 +104,16 @@ function Hero() {
           className="flex justify-center gap-16 mt-20"
         >
           <div className="text-center">
-            <Counter target={500} />
-            <p className="text-white/60 text-sm mt-2">Creadores Curados</p>
+            <Counter target={50} />
+            <p className="text-white/60 text-sm mt-2">Creadores Locales</p>
           </div>
           <div className="text-center">
-            <Counter target={98} />
-            <p className="text-white/60 text-sm mt-2">% Satisfacción</p>
+            <Counter target={100} />
+            <p className="text-white/60 text-sm mt-2">Campañas Realizadas</p>
           </div>
           <div className="text-center">
-            <Counter target={3} />
-            <p className="text-white/60 text-sm mt-2">Años de Experiencia</p>
+            <Counter target={24} />
+            <p className="text-white/60 text-sm mt-2">Hs Respuesta</p>
           </div>
         </motion.div>
       </div>
@@ -146,9 +143,9 @@ function Problem() {
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                 className="absolute top-0 left-0 w-72 p-6 bg-landing-card border border-white/10 rounded-2xl backdrop-blur-xl"
               >
-                <div className="w-12 h-12 bg-landing-orange/20 rounded-xl flex items-center justify-center text-2xl mb-4">📉</div>
-                <h4 className="text-white/50 text-lg mb-2">Engagement Falso</h4>
-                <p className="text-white/30 text-sm">Miles de seguidores, cero conversión real</p>
+                <div className="w-12 h-12 bg-landing-orange/20 rounded-xl flex items-center justify-center text-2xl mb-4">⏱️</div>
+                <h4 className="text-white/50 text-lg mb-2">Tiempo Perdido</h4>
+                <p className="text-white/30 text-sm">Publicar sin estrategia no genera resultados</p>
               </motion.div>
 
               <motion.div
@@ -156,9 +153,9 @@ function Problem() {
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
                 className="absolute top-28 right-0 w-64 p-6 bg-landing-card border border-white/10 rounded-2xl backdrop-blur-xl"
               >
-                <div className="w-12 h-12 bg-landing-pink/20 rounded-xl flex items-center justify-center text-2xl mb-4">🎯</div>
-                <h4 className="text-white/50 text-lg mb-2">Desalineación</h4>
-                <p className="text-white/30 text-sm">Creadores que no conectan con tu marca</p>
+                <div className="w-12 h-12 bg-landing-pink/20 rounded-xl flex items-center justify-center text-2xl mb-4">📍</div>
+                <h4 className="text-white/50 text-lg mb-2">Audiencia Incorrecta</h4>
+                <p className="text-white/30 text-sm">Seguidores que no son de la zona</p>
               </motion.div>
 
               <motion.div
@@ -166,34 +163,23 @@ function Problem() {
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                 className="absolute bottom-12 left-8 w-72 p-6 bg-landing-card border border-white/10 rounded-2xl backdrop-blur-xl"
               >
-                <div className="w-12 h-12 bg-landing-purple/20 rounded-xl flex items-center justify-center text-2xl mb-4">💸</div>
-                <h4 className="text-white/50 text-lg mb-2">Inversión Perdida</h4>
-                <p className="text-white/30 text-sm">Campañas masivas sin retorno</p>
+                <div className="w-12 h-12 bg-landing-purple/20 rounded-xl flex items-center justify-center text-2xl mb-4">💰</div>
+                <h4 className="text-white/50 text-lg mb-2">Sin Conversión</h4>
+                <p className="text-white/30 text-sm">Visitas que no se convierten en clientes</p>
               </motion.div>
             </div>
           </AnimatedSection>
 
           <AnimatedSection>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-white leading-tight">
-              El marketing de influencia está <span className="text-white/30 line-through decoration-4 decoration-landing-pink">roto</span>
+              ¿Sabés que necesitás estar en redes pero no sabés por dónde empezar?
             </h2>
             <p className="text-lg text-white/70 mb-8 leading-relaxed">
-              Por cada 10 influencers que contactas, 9 no generan resultados. El mercado está saturado de perfiles sin credibilidad real, métricas infladas y desconexión total con tu audiencia objetivo.
+              Publicar sin estrategia es perder tiempo. Pagarle a alguien con muchos seguidores no garantiza que esos seguidores sean de acá, que consuman en tu zona, o que se conviertan en clientes reales.
             </p>
-            <div className="space-y-4">
-              {['Horas perdidas filtrando perfiles irrelevantes', 'Campañas que no reflejan los valores de tu marca', 'Presupuesto invertido sin ROI medible'].map((point, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-3 p-4 bg-landing-pink/10 border-l-4 border-landing-pink rounded-r-lg"
-                >
-                  <span className="text-landing-pink font-bold">✕</span>
-                  <span className="text-white/80">{point}</span>
-                </motion.div>
-              ))}
-            </div>
+            <p className="text-lg text-white/70 leading-relaxed">
+              En el Valle de Uco, la confianza se construye cerca. Nosotros sabemos quién tiene influencia real en tu comunidad.
+            </p>
           </AnimatedSection>
         </div>
       </div>
@@ -202,82 +188,60 @@ function Problem() {
 }
 
 function Solution() {
-  const features = [
-    {
-      number: '01',
-      title: 'Selección Estratégica',
-      description: 'Cada perfil pasa por un riguroso proceso de evaluación. No representamos volumen, representamos talento alineado con tu marca.',
-    },
-    {
-      number: '02',
-      title: 'Métricas que Importan',
-      description: 'Más allá de los números. Analizamos engagement real, credibilidad auténtica y capacidad de conversión genuina.',
-    },
-    {
-      number: '03',
-      title: 'Alianzas Cuidadas',
-      description: 'Diseñamos colaboraciones donde cada detalle protege tu reputación y potencia el posicionamiento del creador.',
-    },
-  ];
-
   const process = [
     {
-      title: 'Evaluación Profunda',
-      description: 'Analizamos métricas auténticas, historial de colaboraciones, coherencia de marca y engagement real. Solo el 15% pasa este filtro.',
-      icon: '🔍',
+      number: '1',
+      title: 'Entendemos tu objetivo',
+      description: 'Antes de cualquier campaña, hablamos. Queremos saber qué vendés, a quién le hablás y qué resultado concreto esperás. Nada genérico.',
+      icon: '💬',
     },
     {
-      title: 'Match Estratégico',
-      description: 'Conectamos marcas con creadores cuya audiencia coincide perfectamente con tu objetivo demográfico y valores.',
+      number: '2',
+      title: 'Encontramos al creador ideal',
+      description: 'Tenemos una base de creadores de contenido locales verificados, con audiencia real en Tunuyán, Tupungato y San Carlos. Elegimos al que mejor encaja con tu rubro y tu cliente.',
       icon: '🎯',
     },
     {
-      title: 'Ejecución Perfecta',
-      description: 'Coordinamos cada detalle, desde el brief hasta la entrega, asegurando que ambas partes cumplan y superen expectativas.',
-      icon: '✨',
+      number: '3',
+      title: 'Lanzamos la campaña',
+      description: 'El creador publica en sus perfiles durante el período acordado. Vos no tenés que hacer nada: nosotros coordinamos todo.',
+      icon: '🚀',
+    },
+    {
+      number: '4',
+      title: 'Te mostramos los resultados',
+      description: 'Al finalizar recibís un informe claro con números reales: cuánta gente vio tu campaña, cuántas interacciones generó y cómo impactó en tus consultas. Sin tecnicismos, sin letra chica.',
+      icon: '📊',
     },
   ];
 
   return (
-    <section id="solucion" className="py-32 px-5 bg-gradient-to-b from-transparent via-landing-purple/5 to-transparent bg-landing-dark">
+    <section id="proceso" className="py-32 px-5 bg-gradient-to-b from-transparent via-landing-purple/5 to-transparent bg-landing-dark">
       <div className="max-w-6xl mx-auto">
         <AnimatedSection className="text-center max-w-2xl mx-auto mb-20">
-          <span className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-500 text-sm mb-6">
-            La Diferencia NEXXO
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-white">Curadura que garantiza resultados</h2>
-          <p className="text-lg text-white/70">
-            Seleccionamos cuidadosamente cada creador basándonos en credibilidad, afinidad auténtica y capacidad probada de generar conversión.
-          </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-white">Cómo trabajamos</h2>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
-          {features.map((feature, i) => (
-            <AnimatedSection key={i} className="relative">
-              <motion.div
-                whileHover={{ y: -10, borderColor: 'rgba(255,255,255,0.2)' }}
-                className="bg-landing-card border border-white/8 rounded-3xl p-8 h-full transition-all hover:shadow-[0_30px_60px_rgba(0,0,0,0.4)]"
-              >
-                <span className="absolute top-5 right-5 text-7xl font-black text-white/5">{feature.number}</span>
-                <h3 className="text-2xl font-bold mb-4 text-white">{feature.title}</h3>
-                <p className="text-white/70 leading-relaxed">{feature.description}</p>
-              </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-
         <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-landing-orange via-landing-purple to-transparent -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-landing-orange via-landing-purple to-transparent md:left-1/2 md:-translate-x-1/2" />
           
           {process.map((item, i) => (
-            <AnimatedSection key={i} className={`relative grid md:grid-cols-2 gap-12 mb-20 ${i % 2 === 1 ? 'md:text-right' : ''}`}>
-              <div className={i % 2 === 1 ? 'md:col-start-2' : ''}>
-                <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-5 h-5 bg-gradient-to-r from-landing-orange to-landing-pink rounded-full -top-1 border-4 border-landing-dark shadow-[0_0_20px_rgba(255,107,53,0.5)]" />
-                <h3 className="text-3xl font-bold mb-4 text-white">{item.title}</h3>
-                <p className="text-white/70 leading-relaxed">{item.description}</p>
-              </div>
-              <div className={`flex items-center justify-center bg-landing-card border border-white/10 rounded-2xl p-8 min-h-[200px] ${i % 2 === 1 ? 'md:row-start-1' : ''}`}>
-                <span className="text-6xl">{item.icon}</span>
+            <AnimatedSection key={i} className="relative mb-16 last:mb-0">
+              <div className={`flex gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+                <div className="flex-1 pl-16 md:pl-0">
+                  <div className="md:text-right">
+                    <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-r from-landing-orange to-landing-pink rounded-full flex items-center justify-center font-bold text-white border-4 border-landing-dark">
+                      {item.number}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3 text-white">{item.title}</h3>
+                    <p className="text-white/70 leading-relaxed">{item.description}</p>
+                  </div>
+                </div>
+                <div className="flex-1 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-landing-card border border-white/10 rounded-2xl flex items-center justify-center text-3xl md:hidden">
+                    {item.icon}
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
           ))}
@@ -287,57 +251,71 @@ function Solution() {
   );
 }
 
-function Testimonials() {
-  const testimonials = [
+function Features() {
+  const features = [
     {
-      text: 'NEXXO transformó completamente nuestra estrategia de influencer marketing. Pasamos de campañas dispersas a alianzas estratégicas que generan ventas.',
-      name: 'María Castillo',
-      role: 'CMO, BrandTech',
-      initials: 'MC',
+      title: 'Somos de acá',
+      description: 'No somos una agencia de Buenos Aires que no sabe dónde queda Tunuyán. Conocemos el Valle, sus comercios y su gente.',
+      icon: '📍',
     },
     {
-      text: 'Finalmente encontré una agencia que entiende que no se trata de números, sino de conexiones auténticas. La calidad de los creadores es excepcional.',
-      name: 'Andrés Rodríguez',
-      role: 'Director de Marketing, StartupX',
-      initials: 'AR',
+      title: 'Creadores reales',
+      description: 'Verificamos que los perfiles tengan seguidores genuinos en la zona antes de recomendarlos. Sin bots, sin audiencias infladas.',
+      icon: '✅',
     },
     {
-      text: 'El proceso de curaduría de NEXXO nos ahorró meses de búsqueda. Cada creador que nos presentaron estaba perfectamente alineado con nuestra visión.',
-      name: 'Laura Pérez',
-      role: 'Brand Manager, EcoLife',
-      initials: 'LP',
+      title: 'Resultados medidos',
+      description: 'Cada campaña termina con un informe que muestra exactamente qué pasó. Así sabés si valió la pena y qué mejorar la próxima vez.',
+      icon: '📈',
+    },
+    {
+      title: 'Precio claro',
+      description: 'Sin sorpresas. Te decimos cuánto cuesta antes de empezar.',
+      icon: '💵',
     },
   ];
 
   return (
-    <section id="testimonios" className="py-32 px-5 bg-gradient-to-b from-transparent via-landing-pink/3 to-transparent bg-landing-dark">
+    <section className="py-32 px-5 bg-landing-dark">
       <div className="max-w-6xl mx-auto">
-        <AnimatedSection className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">Lo que dicen quienes ya confían</h2>
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-5 text-white">Por qué NEXXO</h2>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, i) => (
+        <div className="grid md:grid-cols-2 gap-6">
+          {features.map((feature, i) => (
             <AnimatedSection key={i}>
               <motion.div
                 whileHover={{ y: -5 }}
-                className="bg-landing-card border border-white/8 rounded-2xl p-8 h-full relative"
+                className="bg-landing-card border border-white/10 rounded-2xl p-8 flex gap-6 items-start"
               >
-                <span className="absolute top-4 left-6 text-8xl text-landing-orange/20 font-serif leading-none">"</span>
-                <p className="text-white/80 leading-relaxed mb-6 relative z-10">{testimonial.text}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gradient-to-r from-landing-orange to-landing-pink rounded-full flex items-center justify-center font-bold text-white">
-                    {testimonial.initials}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                    <p className="text-white/50 text-sm">{testimonial.role}</p>
-                  </div>
+                <span className="text-4xl">{feature.icon}</span>
+                <div>
+                  <h3 className="text-xl font-bold mb-3 text-white">{feature.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{feature.description}</p>
                 </div>
               </motion.div>
             </AnimatedSection>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ForWho() {
+  return (
+    <section className="py-32 px-5 bg-gradient-to-b from-landing-dark via-landing-pink/5 to-landing-dark">
+      <div className="max-w-4xl mx-auto text-center">
+        <AnimatedSection>
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-white">Para quién es NEXXO</h2>
+          <p className="text-xl text-white/80 leading-relaxed mb-8">
+            NEXXO es para el comercio local que quiere crecer sin perder plata en publicidad que no funciona. Para el restaurante, el gimnasio, la tienda, la estética o el emprendimiento que sabe que sus clientes están en Instagram pero no sabe cómo llegarles de verdad.
+          </p>
+          <p className="text-lg text-white/60">
+            Si alguna vez pagaste publicidad y no viste resultados, o si nunca lo intentaste porque no sabías a quién confiarle esa tarea, NEXXO existe para vos.
+          </p>
+        </AnimatedSection>
       </div>
     </section>
   );
@@ -373,7 +351,7 @@ function ContactForm() {
               </svg>
             </div>
             <h3 className="text-2xl font-bold text-white mb-4">¡Mensaje enviado!</h3>
-            <p className="text-white/70">Gracias por contactarnos. Te responderemos en breve.</p>
+            <p className="text-white/70">Te respondemos en menos de 24 horas.</p>
           </motion.div>
         </div>
       </section>
@@ -384,8 +362,8 @@ function ContactForm() {
     <section id="contacto" className="py-32 px-5 bg-landing-dark">
       <div className="max-w-xl mx-auto">
         <AnimatedSection className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">Hablemos</h2>
-          <p className="text-white/70">Cuéntanos sobre tu proyecto y te contactaremos.</p>
+          <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">¿Hablamos?</h2>
+          <p className="text-white/70">Contanos en qué negocio estás y qué querés lograr. Te respondemos en menos de 24 horas.</p>
         </AnimatedSection>
 
         <motion.form
@@ -404,8 +382,8 @@ function ContactForm() {
               onChange={(e) => setFormData({ ...formData, type: e.target.value })}
             >
               <option value="" className="bg-landing-dark">Selecciona una opción</option>
-              <option value="influencer" className="bg-landing-dark">Influencer</option>
-              <option value="negocio" className="bg-landing-dark">Negocio / Marca</option>
+              <option value="negocio" className="bg-landing-dark">Negocio / Comercio</option>
+              <option value="creador" className="bg-landing-dark">Creador de contenido</option>
             </select>
           </div>
 
@@ -435,11 +413,11 @@ function ContactForm() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-white/80 mb-2">Empresa (opcional)</label>
+            <label className="block text-sm font-medium text-white/80 mb-2">Negocio (opcional)</label>
             <input
               type="text"
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
-              placeholder="Nombre de tu empresa"
+              placeholder="Nombre de tu negocio"
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
             />
@@ -451,7 +429,7 @@ function ContactForm() {
               required
               rows={4}
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange resize-none"
-              placeholder="Cuéntanos sobre tu proyecto o需求..."
+              placeholder="Contanos sobre tu proyecto..."
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
             />
@@ -475,7 +453,8 @@ function Landing() {
       <Hero />
       <Problem />
       <Solution />
-      <Testimonials />
+      <Features />
+      <ForWho />
       <ContactForm />
     </div>
   );
