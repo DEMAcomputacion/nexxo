@@ -166,7 +166,7 @@ function Hero() {
         >
           {[
             { value: '50+', label: 'Creadores verificados' },
-            { value: '100+', label: 'Campañas ejecutadas' },
+            { value: '3', label: 'Campañas ejecutadas' },
             { value: '<24h', label: 'Tiempo de respuesta' },
           ].map((stat, i) => (
             <div key={i} className="text-center">
