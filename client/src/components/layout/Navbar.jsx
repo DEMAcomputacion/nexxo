@@ -1,44 +1,74 @@
 import { Link, useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 
+const DARK_PATHS = ['/login', '/onboarding', '/register-business', '/recover-password'];
+
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const isLanding = location.pathname === '/';
-  const isDarkPage = isLanding || location.pathname === '/login' || location.pathname === '/onboarding' || location.pathname === '/register-business';
+  const isDark =
+    isLanding ||
+    DARK_PATHS.includes(location.pathname) ||
+    location.pathname.startsWith('/dashboard') ||
+    location.pathname.startsWith('/profile');
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
 
-  const navBgClass = isDarkPage 
-    ? 'bg-transparent absolute' 
-    : 'bg-white shadow-sm border-b border-neutral-200';
-    
-  const textClass = isDarkPage ? 'text-white' : 'text-neutral-900';
+  const dashboardLink =
+    user?.role === 'business' ? '/dashboard/business' : '/dashboard/influencer';
+
+  if (isLanding) return null;
 
   return (
-    <nav className={`${navBgClass} z-50 transition-all`}>
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+    <nav
+      className={`z-50 transition-all duration-300 ${
+        isDark
+          ? 'bg-landing-dark/80 backdrop-blur-xl border-b border-white/[0.06]'
+          : 'bg-white shadow-sm border-b border-neutral-200'
+      }`}
+    >
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="flex justify-between h-14 sm:h-16 items-center">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo_transparent.png" alt="NEXXO" className="h-10 w-auto" />
-            <span className={`text-2xl font-bold ${textClass}`}>NEXXO</span>
+            <img src="/logo_transparent.png" alt="NEXXO" className="h-7 sm:h-8 w-auto" />
+            <span className={`font-bold text-base sm:text-lg tracking-tight ${isDark ? 'text-white' : 'text-neutral-900'}`}>
+              NEXXO
+            </span>
           </Link>
-          
+
           {user && (
-            <div className="flex items-center gap-4">
-              <Link to="/dashboard/influencer" className={textClass}>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <Link
+                to={dashboardLink}
+                className={`text-sm font-medium transition-colors ${
+                  isDark ? 'text-white/60 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
                 Dashboard
               </Link>
-              <Link to="/profile/influencer" className={textClass}>
-                Mi Perfil
-              </Link>
-              <button onClick={handleLogout} className={isDarkPage ? 'text-white/70 hover:text-white' : 'text-neutral-600 hover:text-error'}>
-                Cerrar Sesión
+              {user.role === 'influencer' && (
+                <Link
+                  to="/profile/influencer"
+                  className={`text-sm font-medium transition-colors hidden sm:block ${
+                    isDark ? 'text-white/60 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
+                  }`}
+                >
+                  Mi Perfil
+                </Link>
+              )}
+              <button
+                onClick={handleLogout}
+                className={`text-sm transition-colors ${
+                  isDark ? 'text-white/40 hover:text-white/70' : 'text-neutral-400 hover:text-red-500'
+                }`}
+              >
+                Salir
               </button>
             </div>
           )}

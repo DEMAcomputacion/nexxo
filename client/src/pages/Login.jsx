@@ -11,17 +11,18 @@ function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const from = location.state?.from || '/dashboard/influencer';
+
+  const from = location.state?.from;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     try {
-      await login(email, password);
-      navigate(from, { replace: true });
+      const { user } = await login(email, password);
+      const defaultDest = user.role === 'business' ? '/dashboard/business' : '/dashboard/influencer';
+      navigate(from || defaultDest, { replace: true });
     } catch (err) {
       setError(err.response?.data?.error || 'Error al iniciar sesión');
     } finally {
@@ -30,18 +31,18 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-landing-dark flex items-center justify-center px-5 py-20">
+    <div className="min-h-screen bg-landing-dark flex items-center justify-center px-4 py-12 sm:py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="text-center mb-8">
-          <img src="/logo_transparent.png" alt="NEXXO" className="h-16 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-white">Iniciar Sesión</h1>
+        <div className="text-center mb-7 sm:mb-8">
+          <img src="/logo_transparent.png" alt="NEXXO" className="h-12 sm:h-16 mx-auto mb-3 sm:mb-4" />
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Iniciar Sesión</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-landing-card border border-white/10 rounded-2xl p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-landing-card border border-white/10 rounded-2xl p-5 sm:p-8 space-y-5 sm:space-y-6">
           {error && (
             <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
               {error}
@@ -53,7 +54,7 @@ function Login() {
             <input
               type="email"
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-white/30 focus:outline-none focus:border-landing-orange transition-colors"
               placeholder="tu@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +66,7 @@ function Login() {
             <input
               type="password"
               required
-              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-white/30 focus:outline-none focus:border-landing-orange transition-colors"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -75,19 +76,19 @@ function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50"
+            className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] active:opacity-90 transition-all hover:-translate-y-1 disabled:opacity-50 min-h-[52px]"
           >
             {loading ? 'Iniciando...' : 'Iniciar Sesión'}
           </button>
 
           <div className="text-center">
-            <Link to="/recover-password" className="text-white/60 hover:text-white text-sm">
+            <Link to="/recover-password" className="text-white/60 hover:text-white text-sm transition-colors">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
         </form>
 
-        <p className="text-center text-white/60 mt-8 text-sm">
+        <p className="text-center text-white/60 mt-6 sm:mt-8 text-sm">
           ¿Tenés una invitación?{' '}
           <Link to="/onboarding" className="text-landing-orange hover:underline">
             Registrate como influencer

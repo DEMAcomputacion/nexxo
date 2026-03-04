@@ -55,33 +55,37 @@ const collaborationTypes = [
 
 const socialPlatforms = ['Instagram', 'TikTok', 'YouTube', 'X (Twitter)', 'LinkedIn', 'Facebook', 'Otro'];
 
+const inputClass = 'w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-base text-white placeholder-white/30 focus:outline-none focus:border-landing-orange';
+const selectClass = `${inputClass} [&>option]:bg-neutral-900 [&>option]:text-white`;
+const labelClass = 'block text-sm font-medium mb-2 text-white';
+
 function Stepper({ currentStep }) {
   return (
-    <div className="flex items-center justify-center mb-8">
+    <div className="flex items-center justify-center mb-6 sm:mb-8 px-2">
       {steps.map((step, index) => (
         <div key={step.id} className="flex items-center">
           <div className="flex flex-col items-center">
             <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-all duration-300 ${
+              className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm transition-all duration-300 ${
                 currentStep >= step.id
                   ? 'bg-gradient-to-r from-landing-orange to-landing-pink text-white'
                   : 'bg-white/10 text-white/50'
               }`}
             >
               {currentStep > step.id ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               ) : (
                 step.id
               )}
             </div>
-            <span className={`text-xs mt-1 hidden sm:block ${currentStep >= step.id ? 'text-white' : 'text-white/40'}`}>
+            <span className={`text-xs mt-1 hidden sm:block truncate max-w-[72px] text-center ${currentStep >= step.id ? 'text-white' : 'text-white/40'}`}>
               {step.title}
             </span>
           </div>
           {index < steps.length - 1 && (
-            <div className={`w-12 sm:w-20 h-0.5 mx-2 ${currentStep > step.id ? 'bg-gradient-to-r from-landing-orange to-landing-pink' : 'bg-white/10'}`} />
+            <div className={`w-5 sm:w-16 h-0.5 mx-1 sm:mx-2 flex-shrink-0 ${currentStep > step.id ? 'bg-gradient-to-r from-landing-orange to-landing-pink' : 'bg-white/10'}`} />
           )}
         </div>
       ))}
@@ -97,49 +101,49 @@ function Step1Personal({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6 text-white">Información Personal</h2>
-      <p className="text-white/60 text-center mb-6">Vamos a comenzar con tus datos básicos.</p>
-      
+      <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6 text-white">Información Personal</h2>
+      <p className="text-white/60 text-center text-sm sm:text-base mb-4 sm:mb-6">Vamos a comenzar con tus datos básicos.</p>
+
       <div>
-        <label className="block text-sm font-medium mb-2">Nombre completo *</label>
+        <label className={labelClass}>Nombre completo *</label>
         <input
           type="text"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={inputClass}
           placeholder="Juan Pérez"
           value={data.name}
           onChange={(e) => onChange({ ...data, name: e.target.value })}
           required
         />
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Email *</label>
+        <label className={labelClass}>Email *</label>
         <input
           type="email"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={inputClass}
           placeholder="tu@email.com"
           value={data.email}
           onChange={(e) => onChange({ ...data, email: e.target.value })}
           required
         />
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Teléfono</label>
+        <label className={labelClass}>Teléfono</label>
         <input
           type="tel"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={inputClass}
           placeholder="+54 9 11 2345 6789"
           value={data.phone}
           onChange={(e) => onChange({ ...data, phone: e.target.value })}
         />
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Ciudad *</label>
+        <label className={labelClass}>Ciudad *</label>
         <input
           type="text"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={inputClass}
           placeholder="Buenos Aires, Argentina"
           value={data.city}
           onChange={(e) => onChange({ ...data, city: e.target.value })}
@@ -154,7 +158,7 @@ function Step2Social({ data, onChange }) {
   const handlePlatformChange = (platform, field, value) => {
     const current = data.socials || {};
     const platformData = current[platform] || { handle: '', followers: 0 };
-    
+
     onChange({
       ...data,
       socials: {
@@ -171,28 +175,28 @@ function Step2Social({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6 text-white">Redes Sociales</h2>
-      <p className="text-white/60 text-center mb-6">Completá la información sobre tus redes. Solo rellena las que usarás para publicitar.</p>
-      
+      <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6 text-white">Redes Sociales</h2>
+      <p className="text-white/60 text-center text-sm sm:text-base mb-4 sm:mb-6">Completá la información sobre tus redes. Solo rellena las que usarás para publicitar.</p>
+
       {socialPlatforms.map((platform) => (
-        <div key={platform} className="border border-neutral-200 rounded-lg p-4">
-          <h3 className="font-medium mb-3">{platform}</h3>
+        <div key={platform} className="border border-white/10 bg-white/5 rounded-lg p-3 sm:p-4">
+          <h3 className="font-medium mb-3 text-white">{platform}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-neutral-500 mb-1">Usuario / Handle</label>
+              <label className="block text-xs text-white/50 mb-1">Usuario / Handle</label>
               <input
                 type="text"
-                className="input text-sm"
+                className={`${inputClass} text-sm py-2`}
                 placeholder={`@tu_usuario`}
                 value={data.socials?.[platform]?.handle || ''}
                 onChange={(e) => handlePlatformChange(platform, 'handle', e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-xs text-neutral-500 mb-1">Seguidores</label>
+              <label className="block text-xs text-white/50 mb-1">Seguidores</label>
               <input
                 type="number"
-                className="input text-sm"
+                className={`${inputClass} text-sm py-2`}
                 placeholder="0"
                 value={data.socials?.[platform]?.followers || ''}
                 onChange={(e) => handlePlatformChange(platform, 'followers', parseInt(e.target.value) || 0)}
@@ -221,13 +225,13 @@ function Step3Metrics({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6 text-white">Métricas y Sector de Acción</h2>
-      <p className="text-white/60 text-center mb-6">Configura tus métricas luego podés modificarlas o actualizarlas.</p>
-      
+      <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6 text-white">Métricas y Sector de Acción</h2>
+      <p className="text-white/60 text-center text-sm sm:text-base mb-4 sm:mb-6">Configura tus métricas luego podés modificarlas o actualizarlas.</p>
+
       <div>
-        <label className="block text-sm font-medium mb-2">Nicho Principal *</label>
+        <label className={labelClass}>Nicho Principal *</label>
         <select
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={selectClass}
           value={data.niche || ''}
           onChange={(e) => onChange({ ...data, niche: e.target.value })}
           required
@@ -238,28 +242,28 @@ function Step3Metrics({ data, onChange }) {
           ))}
         </select>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Formatos de contenido que realizás</label>
+        <label className={labelClass}>Formatos de contenido que realizás</label>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {contentFormats.map((format) => (
             <label key={format} className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
-                className="w-4 h-4 text-primary rounded border-neutral-300 focus:ring-primary"
+                className="w-4 h-4 accent-landing-orange rounded border-white/30"
                 checked={data.contentFormats?.includes(format) || false}
                 onChange={() => toggleFormat(format)}
               />
-              <span className="text-sm">{format}</span>
+              <span className="text-sm text-white">{format}</span>
             </label>
           ))}
         </div>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Edad Promedio de Audiencia</label>
+        <label className={labelClass}>Edad Promedio de Audiencia</label>
         <select
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={selectClass}
           value={data.audienceAge || ''}
           onChange={(e) => onChange({ ...data, audienceAge: e.target.value })}
         >
@@ -269,11 +273,11 @@ function Step3Metrics({ data, onChange }) {
           ))}
         </select>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Género Predominante</label>
+        <label className={labelClass}>Género Predominante</label>
         <select
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={selectClass}
           value={data.audienceGender || ''}
           onChange={(e) => onChange({ ...data, audienceGender: e.target.value })}
         >
@@ -283,11 +287,11 @@ function Step3Metrics({ data, onChange }) {
           ))}
         </select>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Frecuencia de posteo</label>
+        <label className={labelClass}>Frecuencia de posteo</label>
         <select
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={selectClass}
           value={data.postFrequency || ''}
           onChange={(e) => onChange({ ...data, postFrequency: e.target.value })}
         >
@@ -309,36 +313,36 @@ function Step4Rates({ data, onChange }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6 text-white">Tarifas</h2>
-      <p className="text-neutral-500 text-center mb-6">Configura tus pretensiones por publicación o por alcance.</p>
-      
+      <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6 text-white">Tarifas</h2>
+      <p className="text-white/60 text-center text-sm sm:text-base mb-4 sm:mb-6">Configura tus pretensiones por publicación o por alcance.</p>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Tarifa Mínima por Publicación ($)</label>
+          <label className={labelClass}>Tarifa Mínima por Publicación ($)</label>
           <input
             type="number"
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+            className={inputClass}
             placeholder="100"
             value={data.priceMin || ''}
             onChange={(e) => onChange({ ...data, priceMin: parseInt(e.target.value) || 0 })}
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Tarifa Máxima por Publicación ($)</label>
+          <label className={labelClass}>Tarifa Máxima por Publicación ($)</label>
           <input
             type="number"
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+            className={inputClass}
             placeholder="500"
             value={data.priceMax || ''}
             onChange={(e) => onChange({ ...data, priceMax: parseInt(e.target.value) || 0 })}
           />
         </div>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Modelo de Pago Preferido</label>
+        <label className={labelClass}>Modelo de Pago Preferido</label>
         <select
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={selectClass}
           value={data.paymentModel || ''}
           onChange={(e) => onChange({ ...data, paymentModel: e.target.value })}
         >
@@ -348,15 +352,15 @@ function Step4Rates({ data, onChange }) {
           ))}
         </select>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Tipos de Colaboraciones Aceptadas</label>
+        <label className={labelClass}>Tipos de Colaboraciones Aceptadas</label>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {collaborationTypes.map((c) => (
-            <label key={c} className="flex items-center gap-2 cursor-pointer p-2 border border-neutral-200 rounded-lg hover:bg-neutral-50">
+            <label key={c} className="flex items-center gap-2 cursor-pointer p-2 border border-white/10 rounded-lg hover:bg-white/5">
               <input
                 type="checkbox"
-                className="w-4 h-4 text-primary rounded border-neutral-300 focus:ring-primary"
+                className="w-4 h-4 accent-landing-orange rounded border-white/30"
                 checked={data.collaborationTypes?.includes(c) || false}
                 onChange={(e) => {
                   const current = data.collaborationTypes || [];
@@ -366,27 +370,27 @@ function Step4Rates({ data, onChange }) {
                   onChange({ ...data, collaborationTypes: updated });
                 }}
               />
-              <span className="text-sm">{c}</span>
+              <span className="text-sm text-white">{c}</span>
             </label>
           ))}
         </div>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">URL del Media Kit / Portafolio</label>
+        <label className={labelClass}>URL del Media Kit / Portafolio</label>
         <input
           type="url"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={inputClass}
           placeholder="https://drive.google.com/..."
           value={data.mediaKitUrl || ''}
           onChange={(e) => onChange({ ...data, mediaKitUrl: e.target.value })}
         />
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Restricciones de Contenido</label>
+        <label className={labelClass}>Restricciones de Contenido</label>
         <textarea
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-landing-orange"
+          className={`${inputClass} resize-none`}
           rows={3}
           placeholder="Ej: No acepto contenido para menores de edad, no hago publicidad de..."
           value={data.contentRestrictions || ''}
@@ -410,26 +414,26 @@ function Step5Summary({ data, onChange, errors }) {
       exit={{ opacity: 0, x: -20 }}
       className="space-y-4"
     >
-      <h2 className="text-xl font-semibold text-center mb-6 text-white">Resumen y Contraseña</h2>
-      <p className="text-neutral-500 text-center mb-6">Revisa tus datos y crea una contraseña para tu cuenta.</p>
-      
-      <div className="bg-neutral-50 rounded-lg p-4 mb-6">
-        <h3 className="font-semibold mb-3">Resumen de tu perfil</h3>
-        <div className="space-y-2 text-sm">
-          <p><span className="font-medium">Nombre:</span> {data.name}</p>
-          <p><span className="font-medium">Email:</span> {data.email}</p>
-          <p><span className="font-medium">Ciudad:</span> {data.city}</p>
-          <p><span className="font-medium">Nicho:</span> {data.niche}</p>
-          <p><span className="font-medium">Rango de tarifas:</span> ${data.priceMin} - ${data.priceMax}</p>
-          <p><span className="font-medium">Total seguidores:</span> {totalFollowers.toLocaleString()}</p>
+      <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6 text-white">Resumen y Contraseña</h2>
+      <p className="text-white/60 text-center text-sm sm:text-base mb-4 sm:mb-6">Revisa tus datos y crea una contraseña para tu cuenta.</p>
+
+      <div className="bg-white/5 border border-white/10 rounded-lg p-4 mb-6">
+        <h3 className="font-semibold mb-3 text-white">Resumen de tu perfil</h3>
+        <div className="space-y-2 text-sm text-white/80">
+          <p><span className="font-medium text-white">Nombre:</span> {data.name}</p>
+          <p><span className="font-medium text-white">Email:</span> {data.email}</p>
+          <p><span className="font-medium text-white">Ciudad:</span> {data.city}</p>
+          <p><span className="font-medium text-white">Nicho:</span> {data.niche}</p>
+          <p><span className="font-medium text-white">Rango de tarifas:</span> ${data.priceMin} - ${data.priceMax}</p>
+          <p><span className="font-medium text-white">Total seguidores:</span> {totalFollowers.toLocaleString()}</p>
         </div>
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Contraseña *</label>
+        <label className={labelClass}>Contraseña *</label>
         <input
           type="password"
-          className={`input ${errors.password ? 'border-error' : ''}`}
+          className={`${inputClass} ${errors.password ? 'border-error' : ''}`}
           placeholder="Mínimo 8 caracteres"
           value={data.password || ''}
           onChange={(e) => onChange({ ...data, password: e.target.value })}
@@ -437,12 +441,12 @@ function Step5Summary({ data, onChange, errors }) {
         />
         {errors.password && <p className="text-error text-xs mt-1">{errors.password}</p>}
       </div>
-      
+
       <div>
-        <label className="block text-sm font-medium mb-2">Repetir Contraseña *</label>
+        <label className={labelClass}>Repetir Contraseña *</label>
         <input
           type="password"
-          className={`input ${errors.confirmPassword ? 'border-error' : ''}`}
+          className={`${inputClass} ${errors.confirmPassword ? 'border-error' : ''}`}
           placeholder="••••••••"
           value={data.confirmPassword || ''}
           onChange={(e) => onChange({ ...data, confirmPassword: e.target.value })}
@@ -450,40 +454,40 @@ function Step5Summary({ data, onChange, errors }) {
         />
         {errors.confirmPassword && <p className="text-error text-xs mt-1">{errors.confirmPassword}</p>}
       </div>
-      
+
       <div className="space-y-3 pt-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
-            className="w-4 h-4 mt-1 text-primary rounded border-neutral-300 focus:ring-primary"
+            className="w-4 h-4 mt-1 accent-landing-orange rounded border-white/30"
             checked={data.acceptTerms || false}
             onChange={(e) => onChange({ ...data, acceptTerms: e.target.checked })}
           />
-          <span className="text-sm text-neutral-600">
+          <span className="text-sm text-white/70">
             Acepto los términos y condiciones y la política de privacidad. Entiendo que mis datos serán utilizados para conectar con marcas interesadas en colaborar conmigo. *
           </span>
         </label>
-        
+
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
-            className="w-4 h-4 mt-1 text-primary rounded border-neutral-300 focus:ring-primary"
+            className="w-4 h-4 mt-1 accent-landing-orange rounded border-white/30"
             checked={data.acceptCommunications || false}
             onChange={(e) => onChange({ ...data, acceptCommunications: e.target.checked })}
           />
-          <span className="text-sm text-neutral-600">
+          <span className="text-sm text-white/70">
             Doy mi consentimiento para recibir comunicaciones sobre oportunidades de colaboración, actualizaciones de la plataforma y contenido relevante para influencers.
           </span>
         </label>
-        
+
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
-            className="w-4 h-4 mt-1 text-primary rounded border-neutral-300 focus:ring-primary"
+            className="w-4 h-4 mt-1 accent-landing-orange rounded border-white/30"
             checked={data.acceptVerification || false}
             onChange={(e) => onChange({ ...data, acceptVerification: e.target.checked })}
           />
-          <span className="text-sm text-neutral-600">
+          <span className="text-sm text-white/70">
             Autorizo la verificación de mis perfiles de redes sociales para confirmar mis métricas y legitimidad.
           </span>
         </label>
@@ -498,7 +502,7 @@ export default function Onboarding() {
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -525,17 +529,17 @@ export default function Onboarding() {
 
   const validateStep = (currentStep) => {
     const newErrors = {};
-    
+
     if (currentStep === 1) {
       if (!formData.name.trim()) newErrors.name = 'El nombre es requerido';
       if (!formData.email.trim()) newErrors.email = 'El email es requerido';
       if (!formData.city.trim()) newErrors.city = 'La ciudad es requerida';
     }
-    
+
     if (currentStep === 3) {
       if (!formData.niche) newErrors.niche = 'El nicho es requerido';
     }
-    
+
     if (currentStep === 5) {
       if (!formData.password) newErrors.password = 'La contraseña es requerida';
       if (formData.password.length < 8) newErrors.password = 'Mínimo 8 caracteres';
@@ -546,7 +550,7 @@ export default function Onboarding() {
         newErrors.acceptTerms = 'Debes aceptar los términos y condiciones';
       }
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -563,16 +567,16 @@ export default function Onboarding() {
 
   const handleSubmit = async () => {
     if (!validateStep(5)) return;
-    
+
     setLoading(true);
     setError('');
-    
+
     try {
       const totalFollowers = Object.values(formData.socials).reduce(
         (sum, s) => sum + (s.followers || 0),
         0
       );
-      
+
       const payload = {
         name: formData.name,
         email: formData.email,
@@ -594,7 +598,7 @@ export default function Onboarding() {
         contentRestrictions: formData.contentRestrictions,
         followersCount: totalFollowers,
       };
-      
+
       await api.post('/auth/register', payload);
       navigate('/login', { state: { registered: true } });
     } catch (err) {
@@ -622,45 +626,43 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-landing-dark py-8 px-4">
+    <div className="min-h-screen bg-landing-dark py-6 sm:py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <img src="/logo_transparent.png" alt="NEXXO" className="h-12 mx-auto mb-4" />
+        <div className="text-center mb-6 sm:mb-8">
+          <img src="/logo_transparent.png" alt="NEXXO" className="h-10 sm:h-12 mx-auto mb-3 sm:mb-4" />
           <p className="text-white/70">Registro de Influencer</p>
         </div>
-        
+
         <Stepper currentStep={step} />
-        
-        <div className="bg-landing-card border border-white/10 rounded-2xl p-8">
+
+        <div className="bg-landing-card border border-white/10 rounded-2xl p-5 sm:p-8">
           <AnimatePresence mode="wait">
             {renderStep()}
           </AnimatePresence>
-          
+
           {error && (
             <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
-          
-          <div className="flex justify-between mt-8">
-            {step > 1 ? (
+
+          <div className={`flex mt-8 gap-3 ${step > 1 ? 'justify-between' : 'justify-end'}`}>
+            {step > 1 && (
               <button
                 type="button"
                 onClick={handleBack}
-                className="px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium text-white hover:bg-white/20 transition-all"
+                className="min-h-[48px] px-5 sm:px-6 py-3 bg-white/10 border border-white/20 rounded-xl font-medium text-sm sm:text-base text-white hover:bg-white/20 active:bg-white/25 transition-all"
                 disabled={loading}
               >
                 Anterior
               </button>
-            ) : (
-              <div />
             )}
-            
+
             {step < 5 ? (
               <button
                 type="button"
                 onClick={handleNext}
-                className="px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1"
+                className="min-h-[48px] px-6 sm:px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-sm sm:text-base text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] active:opacity-90 transition-all hover:-translate-y-1"
               >
                 Siguiente
               </button>
@@ -668,7 +670,7 @@ export default function Onboarding() {
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] transition-all hover:-translate-y-1 disabled:opacity-50"
+                className="min-h-[48px] px-6 sm:px-8 py-3 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-sm sm:text-base text-white hover:shadow-[0_20px_40px_rgba(255,107,53,0.3)] active:opacity-90 transition-all hover:-translate-y-1 disabled:opacity-50"
                 disabled={loading}
               >
                 {loading ? 'Registrando...' : 'Completar Registro'}
@@ -676,7 +678,7 @@ export default function Onboarding() {
             )}
           </div>
         </div>
-        
+
         <p className="text-center text-sm text-white/60 mt-6">
           ¿Ya tenés una cuenta?{' '}
           <a href="/login" className="text-landing-orange hover:underline">

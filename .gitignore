@@ -51,3 +51,7 @@ client/build/
 
 # NO (working files)
 NO/
+
+# Claude Code
+.claude/
+CLAUDE.md

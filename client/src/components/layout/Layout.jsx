@@ -5,14 +5,15 @@ import Footer from './Footer';
 function Layout() {
   const location = useLocation();
   const isLanding = location.pathname === '/';
-  
+  const isDashboard = location.pathname.startsWith('/dashboard');
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      {!isLanding && <Navbar />}
       <main className="flex-1">
         <Outlet />
       </main>
-      {!isLanding && <Footer />}
+      {!isLanding && !isDashboard && <Footer />}
     </div>
   );
 }

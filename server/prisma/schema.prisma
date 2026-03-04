@@ -45,38 +45,40 @@ model InfluencerProfile {
   id                  String   @id @default(uuid())
   userId              String   @unique @map("user_id")
   user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+
   // Métricas básicas
   bio                 String?
   location            String?
-  niche               String[] 
+  niche               String[]
   platforms           String[]
   followersCount      Int      @default(0) @map("followers_count")
   engagementRate      Float    @default(0.0) @map("engagement_rate")
-  
+
   // Redes sociales (JSON con handle y followers por plataforma)
   socials             Json?    @map("socials")
-  
+
   // Información de audiencia
   audienceAge         String?  @map("audience_age")
   audienceGender      String?  @map("audience_gender")
   postFrequency       String?  @map("post_frequency")
-  
+
   // Tipos de contenido
   contentFormats      String[] @map("content_formats")
-  
+
   // Tarifas
   priceRangeMin       Int      @default(0) @map("price_range_min")
   priceRangeMax       Int      @default(0) @map("price_range_max")
   paymentModel        String?  @map("payment_model")
   collaborationTypes  String[] @map("collaboration_types")
-  
+
   // Extras
   mediaKitUrl         String?  @map("media_kit_url")
   contentRestrictions String?  @map("content_restrictions")
-  
+
   createdAt           DateTime @default(now()) @map("created_at")
   updatedAt           DateTime @updatedAt @map("updated_at")
+
+  campaigns           Campaign[]
 
   @@map("influencer_profiles")
 }
@@ -94,7 +96,38 @@ model BusinessProfile {
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
+  campaigns     Campaign[]
+
   @@map("business_profiles")
+}
+
+enum CampaignStatus {
+  draft
+  active
+  paused
+  completed
+  cancelled
+}
+
+model Campaign {
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  budget         Int?
+  status         CampaignStatus  @default(draft)
+  startDate      DateTime?       @map("start_date")
+  endDate        DateTime?       @map("end_date")
+
+  businessId     String          @map("business_id")
+  business       BusinessProfile @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  influencerId   String?         @map("influencer_id")
+  influencer     InfluencerProfile? @relation(fields: [influencerId], references: [id], onDelete: SetNull)
+
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+
+  @@map("campaigns")
 }
 
 model MatchingRequest {
@@ -110,6 +143,71 @@ model MatchingRequest {
   updatedAt   DateTime       @updatedAt @map("updated_at")
 
   @@map("matching_requests")
+}
+
+enum PaymentOrderStatus {
+  pending
+  partial
+  paid
+  cancelled
+}
+
+model CollaboratorRole {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  createdAt     DateTime       @default(now()) @map("created_at")
+  collaborators Collaborator[]
+
+  @@map("collaborator_roles")
+}
+
+model Collaborator {
+  id        String           @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  city      String?
+  roleId    String           @map("role_id")
+  role      CollaboratorRole @relation(fields: [roleId], references: [id])
+  socials   Json?
+  notes     String?
+  isActive  Boolean          @default(true) @map("is_active")
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+
+  paymentOrders PaymentOrder[]
+
+  @@map("collaborators")
+}
+
+model PaymentOrder {
+  id             String             @id @default(uuid())
+  collaboratorId String             @map("collaborator_id")
+  collaborator   Collaborator       @relation(fields: [collaboratorId], references: [id])
+  description    String
+  amount         Int
+  status         PaymentOrderStatus @default(pending)
+  dueDate        DateTime?          @map("due_date")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+
+  payments       Payment[]
+
+  @@map("payment_orders")
+}
+
+model Payment {
+  id             String       @id @default(uuid())
+  paymentOrderId String       @map("payment_order_id")
+  paymentOrder   PaymentOrder @relation(fields: [paymentOrderId], references: [id])
+  amount         Int
+  method         String?
+  reference      String?
+  notes          String?
+  paidAt         DateTime     @default(now()) @map("paid_at")
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  @@map("payments")
 }
 
 model PasswordReset {

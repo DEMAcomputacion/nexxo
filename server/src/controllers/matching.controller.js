@@ -2,7 +2,7 @@ import prisma from '../config/database.js';
 
 export const createRequest = async (req, res, next) => {
   try {
-    const senderId = req.user.userId;
+    const senderId = req.user.id;
     const { receiverId, message, budget } = req.body;
     
     if (senderId === receiverId) {
@@ -46,7 +46,7 @@ export const createRequest = async (req, res, next) => {
 
 export const getMyRequests = async (req, res, next) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
     
     const requests = await prisma.matchingRequest.findMany({
       where: {
@@ -81,7 +81,7 @@ export const getMyRequests = async (req, res, next) => {
 
 export const updateRequestStatus = async (req, res, next) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.user.id;
     const { id } = req.params;
     const { status } = req.body;
     
