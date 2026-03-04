@@ -1,8 +1,7 @@
 [build]
-builder = "NIXPACKS"
-buildCommand = "npm ci && npm run build --workspace=client && npm run db:generate"
+builder = "DOCKERFILE"
 
 [deploy]
-startCommand = "npm run start --workspace=server"
+startCommand = "npx prisma db push --schema=server/prisma/schema.prisma && npm run start --workspace=server"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
