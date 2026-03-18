@@ -93,6 +93,57 @@ export const getBusinesses = async (req, res) => {
   res.json({ total, page, limit, items });
 };
 
+export const getAllUsers = async (req, res) => {
+  const page = Math.max(1, parseInt(req.query.page) || 1);
+  const limit = Math.min(100, parseInt(req.query.limit) || 50);
+  const skip = (page - 1) * limit;
+  const search = req.query.search || '';
+
+  const where = search
+    ? { OR: [
+        { name: { contains: search, mode: 'insensitive' } },
+        { email: { contains: search, mode: 'insensitive' } },
+      ] }
+    : {};
+
+  const [total, items] = await Promise.all([
+    prisma.user.count({ where }),
+    prisma.user.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        passwordHash: true,
+        passwordPlain: true,
+        isActive: true,
+        createdAt: true,
+      },
+    }),
+  ]);
+
+  res.json({ total, page, limit, items });
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  // Delete related records first, then user
+  await prisma.$transaction(async (tx) => {
+    await tx.influencerProfile.deleteMany({ where: { userId: id } });
+    await tx.businessProfile.deleteMany({ where: { userId: id } });
+    await tx.matchingRequest.deleteMany({ where: { OR: [{ senderId: id }, { receiverId: id }] } });
+    await tx.passwordReset.deleteMany({ where: { userId: id } });
+    await tx.user.delete({ where: { id } });
+  });
+
+  res.json({ ok: true });
+};
+
 export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { name, email, phone, city, isActive } = req.body;

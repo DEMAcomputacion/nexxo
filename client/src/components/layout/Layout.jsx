@@ -13,7 +13,7 @@ function Layout() {
       <main className="flex-1">
         <Outlet />
       </main>
-      {!isLanding && !isDashboard && <Footer />}
+      {!isDashboard && <Footer />}
     </div>
   );
 }

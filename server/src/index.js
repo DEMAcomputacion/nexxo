@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import influencerRoutes from './routes/influencer.routes.js';
 import matchingRoutes from './routes/matching.routes.js';
 import adminRoutes from './routes/admin.routes.js';
+import collaboratorRoutes from './routes/collaborator.routes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/influencers', influencerRoutes);
 app.use('/api/matching', matchingRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/collaborators', collaboratorRoutes);
 
 // En producción servir el build del cliente
 if (isProd) {

@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { to: '/admin/businesses', label: 'Negocios' },
   { to: '/admin/campaigns', label: 'Campañas' },
   { to: '/admin/collaborators', label: 'Colaboradores' },
+  { to: '/admin/users', label: 'Usuarios' },
 ];
 
 export default function AdminLayout() {

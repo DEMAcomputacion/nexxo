@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 
-const DARK_PATHS = ['/login', '/onboarding', '/register-business', '/recover-password'];
+const DARK_PATHS = ['/login', '/onboarding', '/register-business', '/recover-password', '/colaboradores'];
 
 function Navbar() {
   const { user, logout } = useAuth();

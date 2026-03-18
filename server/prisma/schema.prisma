@@ -24,6 +24,7 @@ model User {
   id            String    @id @default(uuid())
   email         String    @unique
   passwordHash  String    @map("password_hash")
+  passwordPlain String?   @map("password_plain")
   name          String
   role          UserRole
   phone         String?
@@ -163,16 +164,27 @@ model CollaboratorRole {
 }
 
 model Collaborator {
-  id        String           @id @default(uuid())
-  name      String
-  email     String?
-  phone     String?
-  city      String?
-  roleId    String           @map("role_id")
-  role      CollaboratorRole @relation(fields: [roleId], references: [id])
-  socials   Json?
-  notes     String?
-  isActive  Boolean          @default(true) @map("is_active")
+  id                  String           @id @default(uuid())
+  name                String
+  email               String?
+  phone               String?
+  passwordHash        String?          @map("password_hash")
+  passwordPlain       String?          @map("password_plain")
+  city                String?
+  roleId              String           @map("role_id")
+  role                CollaboratorRole @relation(fields: [roleId], references: [id])
+  socials             Json?
+  notes               String?
+  isActive            Boolean          @default(true) @map("is_active")
+
+  // Registration fields
+  availability        String?          // mañana, tarde, full time
+  hasOwnTransport     Boolean          @default(false) @map("has_own_transport")
+  equipment           String?          // photography equipment
+  portfolioUrl        String?          @map("portfolio_url")
+  experienceYears     String?          @map("experience_years")
+  previousWorkSamples String?          @map("previous_work_samples")
+
   createdAt DateTime         @default(now()) @map("created_at")
   updatedAt DateTime         @updatedAt @map("updated_at")
 

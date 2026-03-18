@@ -3,9 +3,11 @@ import { adminAuthenticate } from '../middleware/adminAuth.middleware.js';
 import {
   adminLogin,
   getStats,
+  getAllUsers,
   getInfluencers,
   getBusinesses,
   updateUser,
+  deleteUser,
   getCampaigns,
   createCampaign,
   updateCampaign,
@@ -34,9 +36,11 @@ router.post('/auth', adminLogin);
 router.get('/stats', adminAuthenticate, getStats);
 
 // Users
+router.get('/users', adminAuthenticate, getAllUsers);
 router.get('/influencers', adminAuthenticate, getInfluencers);
 router.get('/businesses', adminAuthenticate, getBusinesses);
 router.put('/users/:id', adminAuthenticate, updateUser);
+router.delete('/users/:id', adminAuthenticate, deleteUser);
 
 // Campaigns
 router.get('/campaigns', adminAuthenticate, getCampaigns);

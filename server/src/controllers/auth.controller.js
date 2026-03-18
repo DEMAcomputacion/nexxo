@@ -58,6 +58,7 @@ export const register = async (req, res, next) => {
         data: {
           email: data.email,
           passwordHash,
+          passwordPlain: data.password,
           name: data.name,
           role: data.role,
           phone: data.phone,
@@ -201,6 +202,7 @@ export const registerBusiness = async (req, res, next) => {
       data: {
         email,
         passwordHash,
+        passwordPlain: password,
         name: companyName,
         role: 'business',
         businessProfile: {

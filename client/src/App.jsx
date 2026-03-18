@@ -1,10 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router';
+import { usePageTracking } from './hooks/usePageTracking';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import RegisterBusiness from './pages/RegisterBusiness';
 import RecoverPassword from './pages/RecoverPassword';
+import RegisterCollaborator from './pages/RegisterCollaborator';
 import DashboardInfluencer from './pages/DashboardInfluencer';
 import DashboardBusiness from './pages/DashboardBusiness';
 import ProfileInfluencer from './pages/ProfileInfluencer';
@@ -18,8 +20,11 @@ import AdminInfluencers from './pages/admin/AdminInfluencers';
 import AdminBusinesses from './pages/admin/AdminBusinesses';
 import AdminCampaigns from './pages/admin/AdminCampaigns';
 import AdminCollaborators from './pages/admin/AdminCollaborators';
+import AdminUsers from './pages/admin/AdminUsers';
 
 function App() {
+  usePageTracking();
+
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -28,6 +33,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/register-business" element={<RegisterBusiness />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/colaboradores" element={<RegisterCollaborator />} />
 
         <Route path="/dashboard/influencer" element={
           <PrivateRoute allowedRoles={['influencer']}>
@@ -63,6 +69,7 @@ function App() {
         <Route path="businesses" element={<AdminBusinesses />} />
         <Route path="campaigns" element={<AdminCampaigns />} />
         <Route path="collaborators" element={<AdminCollaborators />} />
+        <Route path="users" element={<AdminUsers />} />
       </Route>
     </Routes>
   );
