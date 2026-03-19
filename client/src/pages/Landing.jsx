@@ -773,10 +773,29 @@ function ContactForm() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError('');
+
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      }).then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      });
+      setSubmitted(true);
+    } catch {
+      setError('Error al enviar. Intenta de nuevo.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -921,12 +940,19 @@ function ContactForm() {
               />
             </div>
 
+            {error && (
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
+                {error}
+              </div>
+            )}
+
             {/* Submit */}
             <button
               type="submit"
-              className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(255,107,53,0.2)] transition-all duration-300 hover:-translate-y-0.5 mt-2"
+              disabled={loading}
+              className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(255,107,53,0.2)] transition-all duration-300 hover:-translate-y-0.5 mt-2 disabled:opacity-50"
             >
-              Enviar consulta
+              {loading ? 'Enviando...' : 'Enviar consulta'}
             </button>
           </form>
         </AnimatedSection>
