@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import prisma from '../config/database.js';
 
 const router = Router();
@@ -36,8 +37,19 @@ router.post('/register', async (req, res) => {
     if (!availability?.trim()) {
       return res.status(400).json({ error: 'La disponibilidad es requerida' });
     }
+    if (!password || password.length < 6) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres' });
+    }
 
-    // Find or create the role
+    // Check if email already exists in User table
+    const existingUser = await prisma.user.findUnique({
+      where: { email: email.trim() },
+    });
+    if (existingUser) {
+      return res.status(400).json({ error: 'El email ya está registrado' });
+    }
+
+    // Find or create the collaborator role
     let role = await prisma.collaboratorRole.findFirst({
       where: { name: collaborationType.trim() },
     });
@@ -47,27 +59,57 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    const passwordHash = password ? await bcrypt.hash(password, 12) : null;
+    const passwordHash = await bcrypt.hash(password, 12);
 
-    const collaborator = await prisma.collaborator.create({
-      data: {
-        name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        roleId: role.id,
-        availability,
-        hasOwnTransport: hasOwnTransport || false,
-        equipment: equipment || null,
-        portfolioUrl: portfolioUrl || null,
-        experienceYears: experienceYears || null,
-        previousWorkSamples: previousWorkSamples || null,
-        passwordHash,
-        passwordPlain: password || null,
-      },
-      include: { role: true },
+    // Create User + Collaborator in a transaction
+    const { user, collaborator } = await prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          email: email.trim(),
+          passwordHash,
+          passwordPlain: password,
+          name: name.trim(),
+          role: 'collaborator',
+          phone: phone.trim(),
+        },
+      });
+
+      const collaborator = await tx.collaborator.create({
+        data: {
+          userId: user.id,
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          roleId: role.id,
+          availability,
+          hasOwnTransport: hasOwnTransport || false,
+          equipment: equipment || null,
+          portfolioUrl: portfolioUrl || null,
+          experienceYears: experienceYears || null,
+          previousWorkSamples: previousWorkSamples || null,
+        },
+        include: { role: true },
+      });
+
+      return { user, collaborator };
     });
 
-    res.status(201).json(collaborator);
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    res.status(201).json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
+      collaborator,
+    });
   } catch (err) {
     console.error('Collaborator registration error:', err);
     res.status(500).json({ error: 'Error al registrar. Intenta de nuevo.' });

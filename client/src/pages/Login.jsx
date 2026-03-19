@@ -21,7 +21,11 @@ function Login() {
 
     try {
       const { user } = await login(email, password);
-      const defaultDest = user.role === 'business' ? '/dashboard/business' : '/dashboard/influencer';
+      const destMap = {
+        business: '/dashboard/business',
+        collaborator: '/dashboard/collaborator',
+      };
+      const defaultDest = destMap[user.role] || '/dashboard/influencer';
       navigate(from || defaultDest, { replace: true });
     } catch (err) {
       setError(err.response?.data?.error || 'Error al iniciar sesión');

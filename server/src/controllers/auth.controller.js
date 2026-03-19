@@ -171,6 +171,9 @@ export const getMe = async (req, res, next) => {
         createdAt: true,
         influencerProfile: true,
         businessProfile: true,
+        collaboratorProfile: {
+          include: { role: true },
+        },
       },
     });
     

@@ -11,6 +11,7 @@ enum UserRole {
   influencer
   business
   admin
+  collaborator
 }
 
 enum RequestStatus {
@@ -35,10 +36,11 @@ model User {
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
 
-  influencerProfile InfluencerProfile?
-  businessProfile   BusinessProfile?
-  sentRequests      MatchingRequest[] @relation("SentRequests")
-  receivedRequests MatchingRequest[] @relation("ReceivedRequests")
+  influencerProfile  InfluencerProfile?
+  businessProfile    BusinessProfile?
+  collaboratorProfile Collaborator?
+  sentRequests       MatchingRequest[] @relation("SentRequests")
+  receivedRequests   MatchingRequest[] @relation("ReceivedRequests")
 
   @@map("users")
 }
@@ -165,11 +167,11 @@ model CollaboratorRole {
 
 model Collaborator {
   id                  String           @id @default(uuid())
+  userId              String?          @unique @map("user_id")
+  user                User?            @relation(fields: [userId], references: [id], onDelete: Cascade)
   name                String
   email               String?
   phone               String?
-  passwordHash        String?          @map("password_hash")
-  passwordPlain       String?          @map("password_plain")
   city                String?
   roleId              String           @map("role_id")
   role                CollaboratorRole @relation(fields: [roleId], references: [id])

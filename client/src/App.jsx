@@ -9,6 +9,7 @@ import RecoverPassword from './pages/RecoverPassword';
 import RegisterCollaborator from './pages/RegisterCollaborator';
 import DashboardInfluencer from './pages/DashboardInfluencer';
 import DashboardBusiness from './pages/DashboardBusiness';
+import DashboardCollaborator from './pages/DashboardCollaborator';
 import ProfileInfluencer from './pages/ProfileInfluencer';
 import Layout from './components/layout/Layout';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -50,6 +51,12 @@ function App() {
         <Route path="/dashboard/business" element={
           <PrivateRoute allowedRoles={['business']}>
             <DashboardBusiness />
+          </PrivateRoute>
+        } />
+
+        <Route path="/dashboard/collaborator" element={
+          <PrivateRoute allowedRoles={['collaborator']}>
+            <DashboardCollaborator />
           </PrivateRoute>
         } />
 
