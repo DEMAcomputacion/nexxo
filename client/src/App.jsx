@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import RegisterBusiness from './pages/RegisterBusiness';
 import RecoverPassword from './pages/RecoverPassword';
+import ResetPassword from './pages/ResetPassword';
 import RegisterCollaborator from './pages/RegisterCollaborator';
 import DashboardInfluencer from './pages/DashboardInfluencer';
 import DashboardBusiness from './pages/DashboardBusiness';
@@ -34,6 +35,7 @@ function App() {
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/register-business" element={<RegisterBusiness />} />
         <Route path="/recover-password" element={<RecoverPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/colaboradores" element={<RegisterCollaborator />} />
 
         <Route path="/dashboard/influencer" element={

@@ -1,7 +1,11 @@
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import { Resend } from 'resend';
 import prisma from '../config/database.js';
 import { z } from 'zod';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const registerSchema = z.object({
   email: z.string().email('Invalid email format'),
@@ -236,6 +240,103 @@ export const registerBusiness = async (req, res, next) => {
     });
   } catch (error) {
     console.error('Register business error:', error);
+    next(error);
+  }
+};
+
+export const requestPasswordReset = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({ error: 'Email es requerido' });
+    }
+
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    // Always return success to avoid email enumeration
+    if (!user) {
+      return res.json({ message: 'Si el email existe, recibirás instrucciones' });
+    }
+
+    // Invalidate previous tokens
+    await prisma.passwordReset.updateMany({
+      where: { userId: user.id, used: false },
+      data: { used: true },
+    });
+
+    // Create reset token (valid 1 hour)
+    const token = crypto.randomBytes(32).toString('hex');
+    await prisma.passwordReset.create({
+      data: {
+        userId: user.id,
+        token,
+        expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+      },
+    });
+
+    const resetUrl = `${process.env.APP_URL}/reset-password?token=${token}`;
+
+    await resend.emails.send({
+      from: 'NEXXO <onboarding@resend.dev>',
+      to: user.email,
+      subject: 'Recuperar contraseña - NEXXO',
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #111; color: #fff; border-radius: 16px;">
+          <h2 style="margin: 0 0 16px; font-size: 20px;">Recuperar contraseña</h2>
+          <p style="color: #aaa; font-size: 14px; line-height: 1.6;">
+            Hola <strong style="color: #fff;">${user.name}</strong>, recibimos una solicitud para restablecer tu contraseña.
+          </p>
+          <a href="${resetUrl}" style="display: inline-block; margin: 24px 0; padding: 14px 28px; background: linear-gradient(90deg, #FF6B35, #FF4466); color: #fff; text-decoration: none; border-radius: 12px; font-weight: 600; font-size: 14px;">
+            Restablecer contraseña
+          </a>
+          <p style="color: #666; font-size: 12px; line-height: 1.5;">
+            Este enlace expira en 1 hora. Si no solicitaste este cambio, ignora este email.
+          </p>
+        </div>
+      `,
+    });
+
+    res.json({ message: 'Si el email existe, recibirás instrucciones' });
+  } catch (error) {
+    console.error('Password reset request error:', error);
+    next(error);
+  }
+};
+
+export const resetPassword = async (req, res, next) => {
+  try {
+    const { token, password } = req.body;
+
+    if (!token || !password) {
+      return res.status(400).json({ error: 'Token y contraseña son requeridos' });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres' });
+    }
+
+    const resetRecord = await prisma.passwordReset.findUnique({ where: { token } });
+
+    if (!resetRecord || resetRecord.used || resetRecord.expiresAt < new Date()) {
+      return res.status(400).json({ error: 'El enlace es invalido o ha expirado' });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    await prisma.$transaction([
+      prisma.user.update({
+        where: { id: resetRecord.userId },
+        data: { passwordHash, passwordPlain: password },
+      }),
+      prisma.passwordReset.update({
+        where: { id: resetRecord.id },
+        data: { used: true },
+      }),
+    ]);
+
+    res.json({ message: 'Contraseña actualizada correctamente' });
+  } catch (error) {
+    console.error('Password reset error:', error);
     next(error);
   }
 };
