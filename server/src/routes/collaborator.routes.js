@@ -2,6 +2,7 @@ import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import prisma from '../config/database.js';
+import { authenticate, requireRole } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
@@ -113,6 +114,88 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.error('Collaborator registration error:', err);
     res.status(500).json({ error: 'Error al registrar. Intenta de nuevo.' });
+  }
+});
+
+// Get own collaborator profile
+router.get('/me/profile', authenticate, requireRole('collaborator'), async (req, res) => {
+  try {
+    const collaborator = await prisma.collaborator.findUnique({
+      where: { userId: req.user.id },
+      include: { role: true },
+    });
+
+    if (!collaborator) {
+      return res.status(404).json({ error: 'Perfil de colaborador no encontrado' });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      select: { avatar: true, email: true, name: true, phone: true },
+    });
+
+    res.json({ ...collaborator, avatar: user.avatar });
+  } catch (err) {
+    console.error('Get collaborator profile error:', err);
+    res.status(500).json({ error: 'Error al obtener perfil' });
+  }
+});
+
+// Update own collaborator profile
+router.put('/me/profile', authenticate, requireRole('collaborator'), async (req, res) => {
+  try {
+    const {
+      name,
+      phone,
+      availability,
+      hasOwnTransport,
+      equipment,
+      portfolioUrl,
+      previousWorkSamples,
+      avatar,
+    } = req.body;
+
+    const existing = await prisma.collaborator.findUnique({
+      where: { userId: req.user.id },
+    });
+
+    if (!existing) {
+      return res.status(404).json({ error: 'Perfil de colaborador no encontrado' });
+    }
+
+    const [collaborator] = await prisma.$transaction([
+      prisma.collaborator.update({
+        where: { id: existing.id },
+        data: {
+          ...(name !== undefined && { name }),
+          ...(phone !== undefined && { phone }),
+          ...(availability !== undefined && { availability }),
+          ...(hasOwnTransport !== undefined && { hasOwnTransport }),
+          ...(equipment !== undefined && { equipment }),
+          ...(portfolioUrl !== undefined && { portfolioUrl }),
+          ...(previousWorkSamples !== undefined && { previousWorkSamples }),
+        },
+        include: { role: true },
+      }),
+      prisma.user.update({
+        where: { id: req.user.id },
+        data: {
+          ...(name !== undefined && { name }),
+          ...(phone !== undefined && { phone }),
+          ...(avatar !== undefined && { avatar }),
+        },
+      }),
+    ]);
+
+    const user = await prisma.user.findUnique({
+      where: { id: req.user.id },
+      select: { avatar: true },
+    });
+
+    res.json({ ...collaborator, avatar: user.avatar });
+  } catch (err) {
+    console.error('Update collaborator profile error:', err);
+    res.status(500).json({ error: 'Error al actualizar perfil' });
   }
 });
 
