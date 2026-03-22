@@ -61,7 +61,7 @@ function TopBar() {
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
           <img src="/logo_transparent.png" alt="NEXXO" className="h-9 w-auto" />
-          <span className="font-black text-xl tracking-tight bg-gradient-to-r from-landing-orange via-landing-pink to-landing-blue bg-clip-text text-transparent">NEXXO</span>
+          <span className="font-black text-xl tracking-tight bg-gradient-to-r from-landing-orange to-landing-pink bg-clip-text text-transparent">NEXXO</span>
         </a>
         <div className="flex items-center gap-6">
           <div className="hidden sm:flex items-center gap-5">
@@ -130,9 +130,9 @@ function Hero() {
     >
       {/* Background: simplified, less noisy */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ y: bgY }}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(255,107,53,0.12),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_80%_60%,rgba(233,30,99,0.06),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_30%_at_15%_80%,rgba(102,126,234,0.06),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-10%,rgba(249,115,22,0.12),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_80%_60%,rgba(139,108,246,0.06),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_30%_at_15%_80%,rgba(139,108,246,0.06),transparent)]" />
       </motion.div>
 
       {/* Single subtle accent orb */}
@@ -189,7 +189,7 @@ function Hero() {
         >
           <a
             href="#contacto"
-            className="group px-7 py-4 sm:py-3.5 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-full font-semibold text-white text-[15px] text-center hover:shadow-[0_20px_50px_rgba(255,107,53,0.25)] transition-all duration-300 hover:-translate-y-0.5"
+            className="group px-7 py-4 sm:py-3.5 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-full font-semibold text-white text-[15px] text-center hover:shadow-[0_20px_50px_rgba(249,115,22,0.25)] transition-all duration-300 hover:-translate-y-0.5"
           >
             Quiero más clientes
             <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
@@ -216,11 +216,11 @@ function Hero() {
                 className="w-9 h-9 rounded-full border-2 border-landing-dark flex items-center justify-center text-[11px] font-bold text-white/80"
                 style={{
                   background: [
-                    'linear-gradient(135deg, #FF6B35, #E91E63)',
-                    'linear-gradient(135deg, #667EEA, #9C27B0)',
-                    'linear-gradient(135deg, #E91E63, #FF6B35)',
-                    'linear-gradient(135deg, #9C27B0, #667EEA)',
-                    'linear-gradient(135deg, #FF6B35, #667EEA)',
+                    'linear-gradient(135deg, #F97316, #E85D10)',
+                    'linear-gradient(135deg, #8B6CF6, #F97316)',
+                    'linear-gradient(135deg, #F97316, #8B6CF6)',
+                    'linear-gradient(135deg, #8B6CF6, #E85D10)',
+                    'linear-gradient(135deg, #F97316, #8B6CF6)',
                   ][i],
                 }}
               >
@@ -390,7 +390,7 @@ function Solution() {
   return (
     <section className="relative py-24 md:py-36 px-5 bg-landing-dark overflow-hidden">
       {/* Background accent */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(156,39,176,0.04),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(139,108,246,0.04),transparent)]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
       <div className="relative max-w-5xl mx-auto">
@@ -544,7 +544,7 @@ function ForWho() {
     <section className="relative py-24 md:py-36 px-5 bg-landing-dark overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       {/* Subtle warm gradient bg */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_80%,rgba(255,107,53,0.03),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_80%,rgba(249,115,22,0.03),transparent)]" />
 
       <div className="relative max-w-4xl mx-auto">
         <AnimatedSection className="text-center mb-12 md:mb-16">
@@ -606,7 +606,7 @@ function Creators() {
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       {/* Distinct purple/blue accent to differentiate from business sections */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_50%,rgba(102,126,234,0.05),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_50%,rgba(139,108,246,0.05),transparent)]" />
 
       <div className="relative max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
@@ -635,7 +635,7 @@ function Creators() {
             </div>
             <a
               href="#contacto"
-              className="group flex sm:inline-flex items-center justify-center gap-2 px-7 py-4 sm:py-3.5 bg-gradient-to-r from-landing-blue to-landing-purple rounded-full font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(102,126,234,0.2)] transition-all duration-300 hover:-translate-y-0.5"
+              className="group flex sm:inline-flex items-center justify-center gap-2 px-7 py-4 sm:py-3.5 bg-gradient-to-r from-landing-blue to-landing-purple rounded-full font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(139,108,246,0.2)] transition-all duration-300 hover:-translate-y-0.5"
             >
               Registrarme como creador
               <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -707,7 +707,7 @@ function AboutUs() {
       className="relative py-24 md:py-36 px-5 bg-landing-dark overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(255,107,53,0.03),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(249,115,22,0.03),transparent)]" />
 
       <div className="relative max-w-4xl mx-auto">
         <AnimatedSection className="text-center mb-14 md:mb-20">
@@ -835,7 +835,7 @@ function ContactForm() {
     <section id="contacto" className="relative py-24 md:py-36 px-5 bg-landing-dark">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       {/* Warm glow behind form */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_60%,rgba(255,107,53,0.04),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_60%,rgba(249,115,22,0.04),transparent)]" />
 
       <div className="relative max-w-xl mx-auto">
         <AnimatedSection className="text-center mb-10">
@@ -849,7 +849,7 @@ function ContactForm() {
             Contanos qué hacés y qué necesitás. Te respondemos en menos de 24 horas.
           </p>
           <a
-            href="https://wa.me/5492622000000"
+            href="https://wa.me/5492622359006"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#25D366]/10 border border-[#25D366]/20 rounded-full text-sm text-[#25D366] hover:bg-[#25D366]/20 transition-colors"
@@ -950,7 +950,7 @@ function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(255,107,53,0.2)] transition-all duration-300 hover:-translate-y-0.5 mt-2 disabled:opacity-50"
+              className="w-full px-8 py-4 bg-gradient-to-r from-landing-orange via-landing-coral to-landing-pink rounded-xl font-semibold text-white text-[15px] hover:shadow-[0_20px_50px_rgba(249,115,22,0.2)] transition-all duration-300 hover:-translate-y-0.5 mt-2 disabled:opacity-50"
             >
               {loading ? 'Enviando...' : 'Enviar consulta'}
             </button>
@@ -965,7 +965,7 @@ function ContactForm() {
 function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/5492622000000"
+      href="https://wa.me/5492622359006"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactanos por WhatsApp"

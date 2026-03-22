@@ -8,12 +8,14 @@
   --color-secondary-dark: #c11570;
   --color-secondary-light: #f064ab;
   
-  --color-landing-orange: #ff6b35;
-  --color-landing-coral: #f7931e;
-  --color-landing-pink: #e91e63;
-  --color-landing-purple: #9c27b0;
-  --color-landing-blue: #667eea;
-  --color-landing-dark: #050505;
+  --color-landing-orange: #f97316;
+  --color-landing-coral: #e85d10;
+  --color-landing-pink: #8b6cf6;
+  --color-landing-purple: #8b6cf6;
+  --color-landing-blue: #8b6cf6;
+  --color-landing-dark: #08080a;
+  --color-landing-night-900: #141418;
+  --color-landing-night-800: #1e1e24;
   --color-landing-card: rgba(255, 255, 255, 0.02);
   
   --animate-float: float 6s ease-in-out infinite;
